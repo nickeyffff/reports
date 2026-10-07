@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AI制药 / AI生物制药 产业链深度研究与A股标的收敛</title>
+<style>
+:root { color-scheme: light; }
+* { box-sizing: border-box; }
+body {
+  margin: 0 auto; padding: 26px 20px 60px; max-width: 960px;
+  font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Hiragino Sans GB",
+               "Microsoft YaHei", "Noto Sans CJK SC", "WenQuanYi Zen Hei", sans-serif;
+  font-size: 15.5px; line-height: 1.78; color: #1c1c1e; background: #fff;
+  -webkit-text-size-adjust: 100%;
+}
+h1 { font-size: 25px; line-height: 1.35; margin: 0 0 6px; padding-bottom: 12px;
+     border-bottom: 3px solid #d0021b; letter-spacing: .3px; }
+h2 { font-size: 19px; margin: 34px 0 12px; padding-left: 11px;
+     border-left: 4px solid #d0021b; }
+h3 { font-size: 16.5px; margin: 24px 0 8px; color: #111; }
+p  { margin: 9px 0; }
+strong { color: #b30000; font-weight: 700; }
+em { color: #444; }
+hr { border: 0; border-top: 1px solid #e6e6e6; margin: 26px 0; }
+ul, ol { margin: 9px 0 9px 4px; padding-left: 22px; }
+li { margin: 5px 0; }
+blockquote { margin: 14px 0; padding: 10px 15px; background: #faf7f2;
+  border-left: 4px solid #c9a227; color: #3a3a3a; }
+code { font-family: ui-monospace, Menlo, Consolas, monospace; font-size: 13.5px;
+  background: #f4f4f6; padding: 1px 5px; border-radius: 4px; }
+table { width: 100%; border-collapse: collapse; margin: 14px 0; font-size: 14px; }
+th, td { border: 1px solid #e0e0e2; padding: 7px 9px; text-align: left; vertical-align: top; }
+th { background: #f6f6f8; font-weight: 600; white-space: nowrap; }
+tbody tr:nth-child(even) { background: #fbfbfc; }
+.meta { color: #666; font-size: 13.5px; line-height: 1.7; margin: 0 0 4px; }
+@media (max-width: 560px) {
+  body { padding: 16px 13px 48px; font-size: 15px; }
+  h1 { font-size: 21px; } h2 { font-size: 17.5px; }
+  table { font-size: 12.5px; } th, td { padding: 5px 6px; }
+}
+</style>
+</head>
+<body>
+<h1>AI制药 / AI生物制药 产业链深度研究与A股标的收敛</h1>
+<p><strong>数据基准日：2026-09-30（A股节前最后交易日）｜报告日：2026-10-07</strong></p>
+<p><strong>口径声明</strong>：K线/量价/成交额/缠论结构来自本地 ClickHouse <code>tongdaxin</code>（个股前复权 <code>v_stock_qfq</code>，板块 <code>raw_kline_daily</code>），直查直用、无本地副本；估值（PE-TTM/PB/市值）取自腾讯行情快照（与本地收盘价交叉核对一致）；财务数据取本地 F10 缓存 <code>/opt/data/f10-local/</code> 的「财务分析」段，最新报告期为 <strong>2026-06-30 中报</strong>；股东户数为 2026-06-30 披露口径（cninfo，本期 vs 2026-03-31，全池 105 只全命中）；机构评级/目标价取 AKShare <code>stock_institute_recommend</code>，实际时间跨度为 <strong>2026-09-07 至 2026-10-07</strong>（全池 168 条：9 月 140 条、10 月 28 条）。板块涨跌幅为通达信板块指数点位变化，个股涨跌幅为前复权收盘价变化，<strong>两者口径不同、不可混用</strong>。行业规模、BD 交易、政策文件、海外映射类数字均带出处链接，未查到的一律标注「未查到」。</p>
+<p><strong>版本变更说明</strong>：</p>
+<ul><li><strong>v1.2（本版）</strong>：新增 §5.3「筹码与机构预期的交叉验证」——首次把<strong>股东户数（cninfo 2026-06-30，全池 105 只全命中）</strong>与<strong>机构目标价（AKShare）</strong>纳入第三重证据。<strong>这是一次影响结论的变更</strong>：发现全池「户数减少组」平均 R60 跑赢「户数增加组」10.45 pct；<strong>20 标的中仅 7 只筹码在集中，13 只在分散</strong>，故修正了恒瑞医药（原称"低位吸筹"，实为户数 +17.64% 筹码分散）、毕得医药、奥浦迈、皓元医药、键凯科技的风险标注，并披露药明康德卖方目标价已等于现价、诺禾致源出现唯一一次目标价低于现价。<strong>打分表总分未重算</strong>（见 §5.3 说明）。</li><li><strong>v1.1</strong>：新增 §4.2「申万口径交叉验证」——用申万一级/二级行业分类（独立第二数据源）重算成交额占比迁移，结论与正文一致：医药生物为近5日占比提升第2的申万一级行业（+1.33 pct），二级以医疗服务（+0.64 pct、r60 +24.43%）为首。<strong>结论未变，证据链加固。</strong></li><li><strong>v1.0 首版</strong>：首次建立「AI制药」产业链角色定位体系、动态打分框架与 20 标的排序；首次披露「二级市场资金实际流向与 AI 概念纯度背离」这一核心预期差。</li></ul>
+<hr>
+<h2>摘要：一句话结论</h2>
+<p><strong>AI 不是制药行业的新收入，而是研发环节的降本增效工具；钱最终流向的是「替药企花研发费」的 CXO/CRDMO 与「卖实验耗材」的生命科学上游，而不是「AI 概念纯度最高」的小市值算法公司——而 2026 年的二级市场正在把这两者定价反了。</strong></p>
+<p>三个可验证的事实支撑：</p>
+<table>
+<thead><tr><th>事实</th><th>数字</th><th>来源</th></tr></thead>
+<tbody>
+<tr><td>资金真实流向</td><td>医疗研发外包板块 R60 <strong>+36.99%</strong>、R120 <strong>+46.86%</strong>、R250 <strong>+38.19%</strong>，60日成交额/前60日成交额 = <strong>1.84 倍</strong></td><td>本地 ClickHouse sh881249，2026-09-30</td></tr>
+<tr><td>概念板块反而缩量</td><td>「AI医疗概念」R60 +10.63%、R120 <strong>−4.43%</strong>、R250 <strong>−9.99%</strong>，量能比 <strong>1.07</strong>；「智能医疗」量能比 <strong>0.94</strong>；「人工智能」量能比 <strong>0.76</strong></td><td>本地 ClickHouse sh880747 / sh880933 / sh880948</td></tr>
+<tr><td>产业真实收入已兑现</td><td>CXO &amp; 科研服务 2025 年营收 1104.7 亿元（+13.2%）、归母净利 257.0 亿元（<strong>+85.5%</strong>）；2026Q1 营收 288.9 亿元（+19.6%）、归母净利 64.4 亿元（+26.4%）</td><td>华源证券《医药行业：2025年&amp;2026Q1总结》，2026-05-22</td></tr>
+<tr><td>第二口径独立复核</td><td>申万一级中 <strong>医药生物是近5日成交额占比提升第 2 名（+1.33 pct）</strong>，二级以<strong>医疗服务（+0.64 pct、r60 +24.43%）</strong>为首；同期软件开发 r250 −28.89%、IT服务Ⅱ −30.25%</td><td>本地 ClickHouse 申万分类聚合，2026-09-30（见 §4.2）</td></tr>
+</tbody></table>
+<p><strong>AI 制药自身的市场规模极小</strong>：全球 AI 制药市场 2025 年约 <strong>24.9 亿美元</strong>、2035 年有望突破 460 亿美元（中研普华 / 和君咨询）；中国 AI 制药市场 2025 年才突破 <strong>6 亿元人民币</strong>（和君咨询，2026-08-13）。拿 6 亿元的市场去支撑 A 股上千亿的概念市值，本身就是泡沫的结构性证据。</p>
+<p><strong>真正在赚钱的是三件事</strong>：①中国创新药 BD 出海（2025 年 157 笔 / 1357 亿美元；2026H1 约 240 笔 / 1063 亿美元，首付款 61.58 亿美元）；②CXO 订单回暖（药明康德在手订单 580.0 亿元，+28.8%）；③AI 让分子数量爆炸 → 直接拉动分子砌块、试剂、模式动物、安评的<strong>用量</strong>。</p>
+<hr>
+<h2>一、产业链全景与角色定位</h2>
+<h3>1.1 产业链结构（层级列表）</h3>
+<table>
+<thead><tr><th>层级</th><th>环节</th><th>角色定位</th><th>代表公司（A股 / 港股）</th></tr></thead>
+<tbody>
+<tr><td><strong>上游 A</strong> 生物数据与组学</td><td>基因测序仪与设备</td><td><strong>核心（卡脖子突破者）</strong></td><td>华大智造 sh688114</td></tr>
+<tr><td></td><td>测序服务与多组学数据</td><td>核心</td><td>诺禾致源 sh688315、华大基因 sz300676</td></tr>
+<tr><td></td><td>检验 / 病理 / 伴随诊断</td><td>核心</td><td>艾德生物 sz300685、金域医学 sh603882、迪安诊断 sz300244、安必平 sh688393</td></tr>
+<tr><td></td><td>医保 / 真实世界数据</td><td>核心（稀缺，未商业化）</td><td>国家平台为主（医保数据 2025 年才开口）</td></tr>
+<tr><td><strong>上游 B</strong> 实验模型与安评</td><td>基因编辑 / 人源化模式动物</td><td><strong>核心（全球领先）</strong></td><td>药康生物 sh688046、南模生物 sh688265、百奥赛图（港股）</td></tr>
+<tr><td></td><td>临床前安评（GLP）</td><td>次核心</td><td>昭衍新药 sh603127、益诺思 sh688710</td></tr>
+<tr><td></td><td>类器官 / 器官芯片</td><td>核心（未上市）</td><td>Emulate、CN Bio（海外）</td></tr>
+<tr><td><strong>上游 C</strong> 分子砌块 / 试剂 / 耗材</td><td>分子砌块（Building Blocks）</td><td><strong>核心</strong></td><td>药石科技 sz300725、皓元医药 sh688131、毕得医药 sh688073</td></tr>
+<tr><td></td><td>科研试剂 / 重组蛋白 / 酶</td><td>核心</td><td>诺唯赞 sh688105、百普赛斯 sz301080、义翘神州 sz301047、近岸蛋白 sh688137</td></tr>
+<tr><td></td><td>细胞培养基（生物药耗材）</td><td><strong>核心</strong></td><td>奥浦迈 sh688293</td></tr>
+<tr><td></td><td>化学试剂 / 耗材电商</td><td>次核心</td><td>阿拉丁 sh688179、泰坦科技 sh688133</td></tr>
+<tr><td></td><td>药用辅料（PEG 衍生物）</td><td>核心</td><td>键凯科技 sh688356、昊帆生物 sz301393</td></tr>
+<tr><td><strong>中游</strong> AI 药物发现 / CRO / CDMO</td><td>AI 药物发现平台</td><td><strong>核心</strong></td><td>成都先导 sh688222、泓博医药 sz301230、英矽智能 3696.HK、晶泰控股 2228.HK</td></tr>
+<tr><td></td><td>一体化 CRDMO（<strong>链主</strong>）</td><td><strong>核心（链主）</strong></td><td>药明康德 sh603259、康龙化成 sz300759</td></tr>
+<tr><td></td><td>小分子 / 多肽 CDMO</td><td>核心</td><td>凯莱英 sz002821、九洲药业 sh603456、博腾股份 sz300363</td></tr>
+<tr><td></td><td>临床前 CRO</td><td>次核心</td><td>美迪西 sh688202、阳光诺和 sh688621、百诚医药 sz301096</td></tr>
+<tr><td></td><td>临床 CRO</td><td>次核心</td><td>泰格医药 sz300347、诺思格 sz301333、普蕊斯 sz301257</td></tr>
+<tr><td><strong>中游 B</strong> 制药装备与实验室自动化</td><td>制药装备</td><td>次核心</td><td>东富龙 sz300171、楚天科技 sz300358</td></tr>
+<tr><td></td><td>实验室自动化工作站</td><td><strong>核心（极度卡脖子）</strong></td><td>Hamilton / Tecan / Beckman 垄断，国产化率极低</td></tr>
+<tr><td></td><td>生物反应器 / 层析介质</td><td><strong>核心（卡脖子）</strong></td><td>Cytiva（丹纳赫）、Tosoh 垄断</td></tr>
+<tr><td><strong>下游 A</strong> 创新药企（需求侧）</td><td>创新药龙头</td><td>次核心</td><td>恒瑞医药 sh600276、百济神州 sh688235</td></tr>
+<tr><td></td><td>细分创新药</td><td>次核心</td><td>艾力斯 sh688578、海思科 sz002653、贝达药业 sz300558、泽璟制药 sh688266、荣昌生物 sh688331</td></tr>
+<tr><td></td><td>疫苗 / 血制品</td><td>次核心</td><td>智飞生物 sz300122、万泰生物 sh603392、特宝生物 sh688278</td></tr>
+<tr><td><strong>下游 B</strong> AI 医疗应用</td><td>医学影像 AI</td><td><strong>边缘</strong></td><td>联影医疗 sh688271、万东医疗 sh600055、祥生医疗 sh688358</td></tr>
+<tr><td></td><td>医疗信息化 / 大模型</td><td><strong>边缘</strong></td><td>卫宁健康 sz300253、创业慧康 sz300451、万达信息 sz300168、润达医疗 sh603108</td></tr>
+<tr><td></td><td>手术机器人</td><td><strong>边缘</strong></td><td>天智航 sh688277、微创机器人 2252.HK</td></tr>
+</tbody></table>
+<h3>1.2 角色定位判定表（核心 / 次核心 / 边缘）</h3>
+<table>
+<thead><tr><th>环节</th><th>代表公司</th><th>判定</th><th>判定依据（真实数字）</th></tr></thead>
+<tbody>
+<tr><td>一体化 CRDMO</td><td>药明康德</td><td><strong>核心</strong></td><td>2026H1 化学业务 249.86 亿（毛利 <strong>56.55%</strong>）、整体归母 110.80 亿、ROE 13.2%、在手订单 580.0 亿</td></tr>
+<tr><td>分子砌块</td><td>药石科技、毕得医药、皓元医药</td><td><strong>核心</strong></td><td>毕得医药 H1 归母 1.03 亿（+40.7%）毛利 50.4%、PE 38.3；皓元医药毛利 50.8%</td></tr>
+<tr><td>模式动物</td><td>药康生物</td><td><strong>核心</strong></td><td>H1 营收 4.60 亿（+22.6%）、归母 1.11 亿（+56.3%）、毛利 <strong>65.07%</strong>、ROE 4.85%</td></tr>
+<tr><td>临床前安评</td><td>昭衍新药</td><td><strong>次核心</strong></td><td>H1 主营（非临床研究）6.76 亿、毛利 22.99%，但归母 7.48 亿<strong>主要来自实验模型公允价值变动</strong>，利润质量存疑</td></tr>
+<tr><td>细胞培养基</td><td>奥浦迈</td><td><strong>核心</strong></td><td>细胞培养产品 H1 2.08 亿、毛利 <strong>67.81%</strong>；但 +155% 增速主要由并购澎立生物贡献</td></tr>
+<tr><td>测序仪</td><td>华大智造</td><td><strong>核心（卡脖子突破者）</strong></td><td>H1 营收 13.66 亿（+18.9%）、毛利 57.0%，但仍亏损 1.58 亿</td></tr>
+<tr><td>DEL + AI 平台</td><td>成都先导</td><td><strong>核心</strong></td><td>H1 营收 3.46 亿（+52.4%）、归母 0.81 亿（+61.2%）、毛利 54.7%；DEL 库超 1.2 万亿化合物</td></tr>
+<tr><td>小分子 CDMO</td><td>凯莱英</td><td><strong>核心</strong></td><td>H1 营收 36.07 亿（+13.1%）、毛利 42.3%，但归母 5.20 亿（<strong>−15.7%</strong>）</td></tr>
+<tr><td>临床 CRO</td><td>泰格医药</td><td><strong>次核心</strong></td><td>H1 营收 37.08 亿（+14.1%）但归母 <strong>−4.13 亿（亏损）</strong></td></tr>
+<tr><td>制药装备</td><td>东富龙、楚天科技</td><td><strong>次核心</strong></td><td>毛利仅 32.2% / 35.4%，PE 48.0 / 17.1，无定价权</td></tr>
+<tr><td>创新药</td><td>恒瑞医药、百济神州、艾力斯</td><td><strong>次核心（需求侧）</strong></td><td>AI 对它们是成本项，收入来自药品销售与 BD；艾力斯 H1 归母 15.41 亿、ROE 19.7%</td></tr>
+<tr><td>医学影像/医疗IT</td><td>联影医疗、卫宁健康、润达医疗</td><td><strong>边缘</strong></td><td>卫宁健康 H1 归母 <strong>−1.76 亿</strong>、R250 −25.5%；润达医疗 H1 归母 −0.88 亿、R250 −41.1%</td></tr>
+<tr><td>通用算力</td><td>科大讯飞、浪潮信息、中科曙光</td><td><strong>边缘</strong></td><td>与 AI 制药无专属绑定；科大讯飞 H1 归母 −2.04 亿、R250 −28.8%</td></tr>
+</tbody></table>
+<h3>1.3 关键公司画像（量化）</h3>
+<p><strong>链主层：药明康德 sh603259</strong>｜市值 5078.6 亿｜PE(TTM) 23.4｜PB 6.21｜收盘 167.34</p>
+<ul><li>2026H1：营收 288.97 亿（<strong>+38.94%</strong>）、归母 110.80 亿（+29.43%）、毛利 53.91%、ROE 13.19%</li><li>2025 全年：营收 454.56 亿（+15.84%）、归母 191.51 亿（+102.65%，含药明合联处置等一次性收益）</li><li>分部（2026H1）：化学业务 249.86 亿（86.46%，毛利 56.55%）／测试 24.81 亿（毛利 37.95%）／生物学 13.92 亿（毛利 34.92%）</li><li>竞争壁垒：小分子 D&amp;M 管线 3550 个分子（2026Q1），其中 89 个商业化、94 个 III 期；过去 12 个月合成交付 <strong>超 42 万个新化合物</strong>（2026-07-09 媒体）。AI 对它而言是<strong>产能利用率的放大器</strong>，不是替代者。</li><li>技术结构：周线中枢 [85.53, 104.97]（2025/09/07–2026/06/14），收盘高于上沿 <strong>+59.4%</strong>；日线中枢 [90.69, 104.57]，收盘高于上沿 +60.0%；pos250 = 93.5%，距 250 日高点 −3.29%。量能比 v5/v60 = 0.63（缩量整理）。</li></ul>
+<p><strong>AI 平台层：成都先导 sh688222</strong>｜市值 179.3 亿｜PE(TTM) 127.9｜PB 11.7｜收盘 44.69</p>
+<ul><li>2026H1：营收 3.46 亿（<strong>+52.41%</strong>）、归母 0.81 亿（+61.22%）、扣非 0.77 亿（+42.80%）、毛利 54.72%、净利率 22.95%</li><li>资产：基于数千种骨架合成 <strong>超 1.2 万亿种</strong> DNA 编码小分子化合物、超 3500 亿类环肽、超 1000 亿线性多肽；2025 年达成 25 个项目化合物 IP 转让，累计完成 135 个项目、约 1300 个活性化合物实体分子</li><li>平台：自研「DEL + AI + 自动化」一体化分子优化平台 HAILO；DEL 筛选重合成后功能性分子成功率约 80%</li><li>技术结构：周线中枢 [22.31, 30.13]，收盘高于上沿 +48.3%；日线中枢 [24.58, 33.81]（2026/01/14–2026/09/11），收盘高于上沿 +32.2%；9/11 出现日线二买（已冻结），量能比 1.63</li></ul>
+<p><strong>上游耗材层：药康生物 sh688046</strong>｜市值 155.6 亿｜PE(TTM) 85.2｜PB 6.86｜收盘 37.94</p>
+<ul><li>2026H1：营收 4.60 亿（+22.61%）、归母 1.11 亿（+56.28%）、毛利 <strong>65.07%</strong>、净利率 24.11%</li><li>定位：基因编辑小鼠/人源化模型全球主要供应商，是 AI 生成分子后"必须验证"的物理入口</li><li>技术结构：日线中枢 [15.68, 18.85]（2025/10–2026/01），收盘高于上沿 <strong>+101.3%</strong>；周线中枢 [12.75, 17.31]，收盘高于上沿 +119.2%；末笔向上笔 16.84→43.47（2026/06/08–08/13），已走完一段主升，当前高位震荡（末笔终点后已 33 根 K 线）</li></ul>
+<p><strong>泡沫对照样本：近岸蛋白 sh688137</strong>｜市值 112.1 亿｜PE <strong>−135.5（亏损）</strong>｜PB 5.61｜收盘 160.39</p>
+<ul><li>2026H1：营收 <strong>0.78 亿</strong>（+8.88%）、归母 <strong>−0.29 亿</strong>、毛利 68.75%</li><li>股价：R20 <strong>+121.3%</strong>、R60 <strong>+320.5%</strong>、R250 +271.5%；量能比（20日均额/250日均额）<strong>6.22 倍</strong>；pos250 = 94.3%</li><li>周线中枢 [33.2, 43.41]，收盘高于上沿 <strong>+269.5%</strong></li><li>判断：<strong>典型边缘概念股炒作</strong>——0.78 亿营收撑起 112 亿市值，60 日涨 3.2 倍，成交额放大 6 倍。这是本报告「泡沫」章节的核心证据。</li></ul>
+<h3>1.4 产业链前三名（按"角色定位 × 盈利质量 × 护城河"综合）</h3>
+<table>
+<thead><tr><th>排名</th><th>公司</th><th>代码</th><th>所在环节</th><th>市值（亿）</th><th>2026H1 营收/归母</th><th>PE(TTM)</th><th>一句话理由</th></tr></thead>
+<tbody>
+<tr><td>1</td><td>药明康德</td><td>sh603259</td><td>中游 CRDMO（链主）</td><td>5078.6</td><td>288.97 亿 / 110.80 亿</td><td>23.4</td><td>全链条唯一具备全球定价权的环节，订单 580 亿在手，AI 是它的工具而非威胁</td></tr>
+<tr><td>2</td><td>百济神州</td><td>sh688235</td><td>下游 Biopharma（需求方）</td><td>4078.0</td><td>222.20 亿 / 32.71 亿</td><td>95.2</td><td>中国唯一全球化商业化平台，H1 归母 +627%，2026 收入指引 449–462 亿元</td></tr>
+<tr><td>3</td><td>成都先导</td><td>sh688222</td><td>中游 AI 药物发现平台</td><td>179.3</td><td>3.46 亿 / 0.81 亿</td><td>127.9</td><td>A 股唯一"数据资产 + AI 平台 + IP 转让收入"三者闭环的公司，DEL 库 1.2 万亿化合物</td></tr>
+</tbody></table>
+<blockquote>注：第三名之所以不是市值更大的康龙化成/凯莱英，是因为成都先导是 A 股中<strong>唯一</strong>把「自有海量数据资产 → AI 模型 → 化合物 IP 转让收费」这条闭环跑通并有收入确认的公司（H1 营收 +52.4%、13 个项目 IP 转让），其余 CXO 的 AI 只是内部效率工具，无法单独定价。</blockquote>
+<hr>
+<h2>二、竞争格局与链主分析</h2>
+<h3>2.1 产业链价值分布（利润分配的不均衡性）</h3>
+<table>
+<thead><tr><th>环节</th><th>代表公司</th><th>技术壁垒</th><th>利润水平（2026H1 实测）</th><th>角色归属</th></tr></thead>
+<tbody>
+<tr><td>上游 · 基因测序仪</td><td>华大智造 sh688114</td><td><strong>极高</strong></td><td>毛利 57.03%、净利率 <strong>−11.57%</strong>（仍亏损 1.58 亿）</td><td>核心（卡脖子突破者）</td></tr>
+<tr><td>上游 · 模式动物</td><td>药康生物 sh688046</td><td>高</td><td>毛利 <strong>65.07%</strong>、净利率 24.11%、ROE 4.85%</td><td>核心</td></tr>
+<tr><td>上游 · 细胞培养基</td><td>奥浦迈 sh688293</td><td>高</td><td>培养基毛利 <strong>67.81%</strong>；CDMO 分部毛利 <strong>−49.51%</strong></td><td>核心</td></tr>
+<tr><td>上游 · 分子砌块</td><td>药石科技 sz300725 / 毕得医药 sh688073 / 皓元医药 sh688131</td><td>中高</td><td>毛利 32.49% / 50.42% / 50.76%</td><td>核心</td></tr>
+<tr><td>上游 · 科研试剂</td><td>诺唯赞 sh688105 / 百普赛斯 sz301080 / 义翘神州 sz301047</td><td>中高</td><td>毛利 70.26% / <strong>90.27%</strong> / 74.93%</td><td>核心（但估值已泡沫化）</td></tr>
+<tr><td>中游 · 临床前安评</td><td>昭衍新药 sh603127 / 益诺思 sh688710</td><td>高（GLP 资质）</td><td>昭衍主营毛利 22.99%；益诺思毛利 31.57%</td><td>次核心</td></tr>
+<tr><td>中游 · CRDMO</td><td>药明康德 sh603259 / 康龙化成 sz300759</td><td><strong>极高</strong></td><td>药明整体毛利 53.91%、净利率 <strong>38.50%</strong>、ROE 13.19%；康龙毛利 32.71%、净利率 9.37%</td><td><strong>核心（链主）</strong></td></tr>
+<tr><td>中游 · 小分子 CDMO</td><td>凯莱英 sz002821 / 九洲药业 sh603456</td><td>高</td><td>凯莱英毛利 42.27%、净利率 14.25%、但归母 −15.7%</td><td>核心</td></tr>
+<tr><td>中游 · 临床 CRO</td><td>泰格医药 sz300347 / 诺思格 sz301333</td><td>中</td><td>泰格毛利 27.53%、净利率 <strong>−5.00%</strong>（亏损 4.13 亿）</td><td>次核心</td></tr>
+<tr><td>中游 · 制药装备</td><td>东富龙 sz300171 / 楚天科技 sz300358</td><td>中低</td><td>毛利 32.17% / 35.44%，无定价权</td><td>次核心</td></tr>
+<tr><td>下游 · 创新药</td><td>艾力斯 sh688578 / 海思科 sz002653 / 恒瑞 sh600276</td><td>高（临床+专利）</td><td>艾力斯毛利 94.85%、净利率 <strong>46.41%</strong>、ROE 19.7%；恒瑞毛利 86.33%、净利率 28.89%</td><td>次核心（需求侧）</td></tr>
+<tr><td>下游 · AI 医疗应用</td><td>卫宁健康 sz300253 / 润达医疗 sh603108 / 天智航 sh688277</td><td>极低</td><td>卫宁净利率 −19.46%、润达 −1.92%、天智航 −76.2%</td><td><strong>边缘</strong></td></tr>
+<tr><td>边缘 · 通用算力</td><td>科大讯飞 sz002230 / 浪潮信息 sz000977</td><td>中（与AI制药无关）</td><td>讯飞净利率 −1.66%；浪潮毛利仅 8.75%</td><td><strong>边缘</strong></td></tr>
+</tbody></table>
+<p><strong>利润分配的三个不均衡事实</strong>：</p>
+<ol><li><strong>利润集中在"有客户合同"的环节</strong>：本报告 105 只候选池 2026H1 归母净利合计 498.4 亿元，其中药明康德一家 110.80 亿元，占 <strong>22.2%</strong>；若剔除药明康德，其余 104 只合计 387.6 亿元（其中 28 只亏损）。<strong>一家公司占了全产业链样本利润的两成以上。</strong></li><li><strong>"AI 概念纯度"与利润负相关</strong>：AI 纯度最高的近岸蛋白 H1 归母 −0.29 亿；纯 AI 药物设计的泓博医药 H1 归母仅 0.29 亿、毛利 27.9%；而把 AI 当工具的 CXO 龙头净利率 38.5%。</li><li><strong>下游应用端（医疗IT/影像）是利润黑洞</strong>：卫宁健康、万达信息、天智航、润达医疗 2026H1 全部亏损，且 R250 分别为 −25.5%、−33.6%、−11.1%、−41.1%。</li></ol>
+<h3>2.2 波特五力分析（针对 AI 制药产业链整体）</h3>
+<table>
+<thead><tr><th>五力</th><th>强度</th><th>判断依据（数字）</th></tr></thead>
+<tbody>
+<tr><td><strong>现有竞争者</strong></td><td>中</td><td>全球 AI 药物发现一级市场 2025 年融资 38 亿美元（PitchBook），但<strong>收入端极度稀缺</strong>：全球 AI 设计/优化药物临床管线仅 179 个（截至 2026 年 6 月），其中仅 9 个进 III 期（和君咨询）。竞争者多、变现者少。</td></tr>
+<tr><td><strong>新进入者威胁</strong></td><td>高（对纯 AI 平台）/ 低（对 CXO、上游）</td><td>大模型开源（AlphaFold 3 代码 2024-11-11 开源）把"算法门槛"压到接近零；但 CXO 的产能/合规/客户关系与上游的 GMP 资质、动物种群、培养基配方无法速成。</td></tr>
+<tr><td><strong>替代品威胁</strong></td><td>高</td><td>①AI 设计分子失败率高，大药厂 2025-10-30 已有 BMS 砍掉 2 个 AI 相关临床项目；②中国创新药的替代路径是<strong>BD 买现成管线</strong>（2026H1 首付款 61.58 亿美元）而非自建 AI；③基础模型被 Isomorphic（IsoDDE 精度超 AlphaFold 3 两倍，2026-02-10）与 Meta ESM 系列外部替代。</td></tr>
+<tr><td><strong>供应商议价力</strong></td><td>上游对中游：低；海外对国内：<strong>极高</strong></td><td>上游试剂/模式动物面对 CXO 这样的大客户几乎没有议价权（昭衍实验模型分部毛利仅 4.80%）；但海外供应商对国内议价力极强——高端仪器、层析介质、生物反应器核心部件全部依赖进口。</td></tr>
+<tr><td><strong>买方议价力</strong></td><td>高</td><td>买方是全球 Top20 药企与 Biotech。药明康德在手订单 580.0 亿元、TIDES 收入 113.7 亿元（+96%）说明它还有议价力；但临床 CRO（泰格医药 H1 亏损 4.13 亿）与仿制药 CRO（阳光诺和 H1 归母 −0.24 亿、营收 −27.8%）已明显失去定价权。</td></tr>
+</tbody></table>
+<p><strong>结论</strong>：五力中"买方议价力"和"替代品威胁"最强，因此<strong>只有能同时绑定买方订单与自身稀缺产能的环节才能持续赚钱</strong>——这正是 CXO 与上游工具环节，而不是算法环节。</p>
+<h3>2.3 链主判定</h3>
+<p><strong>链主 = 中游一体化 CRDMO 环节，代表公司药明康德（sh603259）。</strong></p>
+<p>四条判定标准与证据：</p>
+<ol><li><strong>议价权</strong>：药明康德 2026H1 整体净利率 38.50%、ROE 13.19%；下游 CRO（泰格医药净利率 −5.00%）与上游模式动物（昭衍实验模型分部毛利 4.80%）两端都被挤压，唯独它保持高盈利——利润留在了它手里。</li><li><strong>护城河宽度</strong>：3550 个小分子 D&amp;M 管线分子、89 个商业化项目、过去 12 个月合成交付 42 万个新化合物、TIDES 收入 113.7 亿元（+96%）。这套"规模 × 合规 × 产能 × 客户"的组合，新进入者十年内无法复制。</li><li><strong>对 AI 的关系</strong>：AI 让客户产生更多候选分子 → 更多分子需要被合成、纯化、放大、申报 → <strong>AI 越强，链主的订单越多</strong>。AI 对链主是需求放大器；对纯算法公司则是替代威胁（算法可被开源模型替代）。</li><li><strong>资金定价权</strong>：链主环节所在板块（医疗研发外包 sh881249）R60 +36.99%、量能比 1.84，是整条链中唯一"占比上升 + 量能扩张"的环节，说明机构资金正在这里建立定价权。</li></ol>
+<p><strong>链主地位会不会变？</strong> 三年内不会。唯一可能挑战它的是<strong>海外基础模型 + 大药厂自建 AI 平台</strong>（Isomorphic Labs 21 亿美元 B 轮、礼来 TuneLab、诺和诺德×OpenAI），但那是"抢算法公司的活"，不是"抢 CXO 的产能"。</p>
+<hr>
+<h2>三、中国产业链中被卡脖子的地方</h2>
+<h3>3.1 按重要程度排序（对 AI 制药成败的影响权重）</h3>
+<p><strong>第 1 位：底层基础模型 / 算法（重要度 ★★★★★）</strong></p>
+<ul><li>卡在哪：全球可对标的基础模型全部在海外——AlphaFold 3（DeepMind，2024-05-08 发表于 Nature）、IsoDDE（Isomorphic，2026-02-10 发布，对最难蛋白-配体体系预测精度超 AlphaFold 3 两倍以上、抗体-抗原高保真预测为 AF3 的 2.3 倍）、Meta ESM 系列、Generate Biomedicines 的生成式抗体模型。</li><li>为什么卡：这不是"投钱就能追"的差距，而是<strong>数据 × 算力 × 顶尖人才 × 长期基础研究</strong>的四重差距。Isomorphic 背靠 Alphabet，2026-05-12 单轮融资 21 亿美元（AI 制药史上最大单轮）。中国最大的 AI 制药公司英矽智能 2026 上半年全部 MNC 合作潜在总额约 67 亿美元，但 2025 年全年营收仅 5620 万美元（同比 −34.5%）、研发费用 8138 万美元。</li><li>中国现状：有应用层模型（英矽智能 Pharma.AI、晶泰 XtalFold/XtalPi、成都先导 HAILO、GHDDI「AI孔明」2025-12-11 发布），<strong>无基础层模型</strong>。</li></ul>
+<p><strong>第 2 位：高质量私有湿实验数据（重要度 ★★★★★）</strong></p>
+<ul><li>卡在哪：AI 制药的胜负手不是算法而是<strong>独有的、闭环的、带阴性结果的湿实验数据</strong>。Recursion 靠自有表型组学数据平台支撑全栈管线（REC-4881 在 FAP 的 II 期息肉负荷降低 43%–53%，2026-02-25）；Isomorphic 靠 DeepMind 的结构数据。</li><li>为什么卡：中国的高质量数据分散在医院、高校、药企内部，<strong>没有形成可交易的数据资产</strong>。政策口径 2025 年才开口：《支持创新药高质量发展的若干措施》（医保发〔2025〕16 号，2025-06-30）首条即"支持医保数据用于创新药研发"；国家医保局 2026-07-07 披露累计归集药品耗材追溯码 1746.54 亿条、覆盖 31 省——<strong>数据量巨大但尚未成为 AI 可用的研发资产</strong>。</li><li>唯一亮点：金域医学可信数据空间入选国家数据局首批可信数据空间创新发展试点（医疗健康行业唯一入选的民营企业，2025-07-17）。</li></ul>
+<p><strong>第 3 位：高端科研仪器与实验室自动化（重要度 ★★★★）</strong></p>
+<ul><li>卡在哪：质谱/色谱（赛默飞、安捷伦、沃特世）、基因测序仪（Illumina）、冷冻电镜（赛默飞、JEOL）、自动化液体处理工作站（Hamilton、Tecan、Beckman）——<strong>AI 制药的"湿实验闭环"必须靠这些设备</strong>。</li><li>中国现状：华大智造是唯一在测序仪上实现规模突破的公司，但 2026H1 营收 13.66 亿（+18.9%）、仍亏损 1.58 亿，毛利 57.03%——<strong>"能造出来"与"能赚到钱"之间还有距离</strong>。实验室自动化工作站国产化率极低。</li></ul>
+<p><strong>第 4 位：制药装备核心部件（重要度 ★★★★）</strong></p>
+<ul><li>卡在哪：生物反应器（Cytiva/丹纳赫）、层析介质（Cytiva、Tosoh）、一次性耗材膜材（Merck Millipore、Sartorius）。</li><li>中国现状：东富龙（H1 营收 25.35 亿、毛利 32.17%、PE 48.0）、楚天科技（H1 营收 26.24 亿、毛利 35.44%、PE 17.1）做的是<strong>整机集成</strong>，核心部件仍依赖进口，因此毛利率长期锁死在 30%–35%，远低于药明康德的 53.91%。</li></ul>
+<p><strong>第 5 位：高端试剂 / 酶 / 培养基（重要度 ★★★）</strong></p>
+<ul><li>卡在哪：高端酶、抗体、无血清培养基配方。</li><li>中国现状：<strong>这是国产替代进展最快的一环</strong>。奥浦迈细胞培养产品 H1 毛利 67.81%；百普赛斯重组蛋白毛利 90.27%；诺唯赞毛利 70.26%。但三者的估值已被炒到 PE 88.3 / 131.3 / 亏损，替代空间与估值之间已严重失衡。</li></ul>
+<p><strong>第 6 位：模式动物（重要度 ★★）</strong></p>
+<ul><li><strong>中国不卡脖子</strong>。药康生物毛利 65.07%、H1 归母 +56.3%；南模生物（市值 50.7 亿、H1 归母 0.09 亿）也在列。中国在基因编辑小鼠领域已是全球主要供应方之一。</li></ul>
+<p><strong>第 7 位：工业软件 / 标准 / 认证（重要度 ★★★）</strong></p>
+<ul><li>卡在哪：AI 制药的<strong>规则制定权</strong>。FDA 2025-01-07 发布《用于支持药物与生物制品监管决策的人工智能考量》指南草案（Docket FDA-2024-D-4689）；FDA 与 EMA 2026-01 联合发布《药物开发中良好AI实践指导原则》。中国截至 2026-10-07 <strong>未检索到 NMPA/CDE 单独发布的 AI 辅助药物研发专用指导原则</strong>（仅 2026-03-11 国药监综〔2026〕6 号提出"加快研究制定人工智能在医药产业规范应用的指导原则"）。</li><li>为什么卡：标准由谁定，谁就决定"什么样的 AI 证据能被接受"，直接决定中国 AI 制药公司的分子能否进欧美临床。</li></ul>
+<h3>3.2 按稀缺程度排序（中国自给能力从最弱到最强）</h3>
+<table>
+<thead><tr><th>排序</th><th>环节</th><th>稀缺程度</th><th>中国自给能力</th><th>代表公司 / 现状</th></tr></thead>
+<tbody>
+<tr><td>1</td><td>基础大模型 / 生成式分子模型</td><td><strong>极度稀缺</strong></td><td>≈0</td><td>无自主对标 AlphaFold 3 / IsoDDE 的模型</td></tr>
+<tr><td>2</td><td>高质量闭环湿实验数据</td><td><strong>极度稀缺</strong></td><td>低</td><td>数据分散；医保数据 2025 年才开口；金域医学数据空间入选国家试点</td></tr>
+<tr><td>3</td><td>冷冻电镜 / 高分辨质谱</td><td>高度稀缺</td><td>≈0</td><td>全部进口</td></tr>
+<tr><td>4</td><td>实验室自动化工作站</td><td>高度稀缺</td><td>极低</td><td>Hamilton / Tecan / Beckman 垄断</td></tr>
+<tr><td>5</td><td>层析介质 / 生物反应器核心部件</td><td>高度稀缺</td><td>低</td><td>Cytiva / Tosoh；东富龙、楚天科技做整机集成</td></tr>
+<tr><td>6</td><td>基因测序仪</td><td>中度稀缺</td><td><strong>中（已突破）</strong></td><td>华大智造 sh688114，H1 营收 13.66 亿、毛利 57.03%、仍亏损</td></tr>
+<tr><td>7</td><td>高端酶 / 抗体 / 培养基</td><td>中度稀缺</td><td><strong>中高</strong></td><td>诺唯赞、百普赛斯、义翘神州、奥浦迈（毛利 65%–90%）</td></tr>
+<tr><td>8</td><td>分子砌块</td><td>低</td><td><strong>高</strong></td><td>药石科技、皓元医药、毕得医药（全球主要供应方）</td></tr>
+<tr><td>9</td><td>模式动物 / 人源化小鼠</td><td>低</td><td><strong>高（全球领先）</strong></td><td>药康生物（毛利 65.07%）、南模生物、百奥赛图</td></tr>
+<tr><td>10</td><td>临床前安评（GLP）</td><td>低</td><td><strong>高</strong></td><td>昭衍新药、益诺思、美迪西</td></tr>
+</tbody></table>
+<p><strong>投资含义</strong>：稀缺度越高 → 国产替代空间越大，但<strong>当前盈利能力越差</strong>（模型/数据/仪器环节基本不赚钱）。真正"稀缺且已经赚钱"的只有第 6–10 项，即<strong>测序仪、试剂培养基、分子砌块、模式动物、安评</strong>——这正好是本报告 20 标的的主要来源。</p>
+<hr>
+<h2>四、预言家和历史学家</h2>
+<h3>4.1 生命周期四阶段（引入期 / 成长期 / 成熟期 / 衰退期）</h3>
+<p><strong>全球 AI 制药</strong></p>
+<table>
+<thead><tr><th>阶段</th><th>时间</th><th>规模与特征</th><th>推动因素</th><th>玩家竞争方式</th><th>链主地位</th></tr></thead>
+<tbody>
+<tr><td><strong>引入期</strong></td><td>2012–2018</td><td>AI 药物发现公司零星成立（Exscientia 2012、Atomwise 2012）；全球 AI 制药收入≈0</td><td>技术：深度学习兴起、AlphaFold 1（2018）</td><td>拼"概念与论文"</td><td>无链主</td></tr>
+<tr><td><strong>成长期（泡沫期）</strong></td><td>2019–2023</td><td>2021 年一级市场融资高峰；Exscientia 2021 年上市；大量 SPAC 与高估值</td><td>资本：零利率环境；技术：AlphaFold 2（2020）</td><td>拼"管线数量 + 合作签约额"</td><td>大药厂短暂被视为链主</td></tr>
+<tr><td><strong>出清期</strong></td><td>2023–2025</td><td>BenevolentAI 崩塌；Recursion 以约 6.88 亿美元收购 Exscientia（2024-08-08 协议、2024-11-20 完成）；RXRX 2025 全年 <strong>−39.5%</strong>（6.76→4.09 美元）</td><td>经济：加息、生物科技寒冬；技术：AI 管线临床失败</td><td>拼"现金流与真实临床数据"</td><td>链主转移到<strong>有产能的 CXO</strong></td></tr>
+<tr><td><strong>商业化确认期（当前）</strong></td><td>2025–2027</td><td>英矽智能 2025-12-30 港股上市（募资 22.77 亿港元、首日 +45.53%）；剂泰科技 2026-05-13 上市首日 <strong>+126.67%</strong>、收盘市值 274 亿港元；晶泰科技与 DoveTree 协议总额约 <strong>59.9 亿美元</strong>；Rentosertib 启动 III 期（2026-07-08）</td><td>技术：AlphaFold 3（2024）、IsoDDE（2026）、武田 AI 设计 TYK2 抑制剂 zasocitinib 三项 III 期成功（2025-12-22）；经济：MNC 专利悬崖 + 中国 BD 性价比</td><td>拼"首付款到账 + 里程碑兑现 + 平台可复制性"</td><td><strong>CXO/CRDMO 环节（药明康德）</strong></td></tr>
+<tr><td><strong>成熟期（预测）</strong></td><td>2028–2032</td><td>预测：全球 AI 制药市场 2035 年突破 460 亿美元（中研普华/和君），CAGR 超 33%</td><td>技术：基础模型成为行业基础设施</td><td>拼"数据资产 + 端到端一体化"</td><td>预测仍为一体化 CRDMO + 少数平台型 AI 公司</td></tr>
+</tbody></table>
+<p><strong>中国 AI 制药</strong></p>
+<table>
+<thead><tr><th>阶段</th><th>时间</th><th>规模与特征</th><th>推动因素</th></tr></thead>
+<tbody>
+<tr><td>引入期</td><td>2018–2020</td><td>晶泰科技、英矽智能成立；成都先导 2020 年科创板上市</td><td>政策：科创板上线；技术：AlphaFold 1/2</td></tr>
+<tr><td>概念期</td><td>2021–2023</td><td>AI 制药概念股炒预期，多数公司无 AI 相关收入</td><td>资本：一级市场热钱</td></tr>
+<tr><td><strong>商业化确认期（当前）</strong></td><td>2024–2027</td><td>中国 AI 制药市场 2025 年才突破 <strong>6 亿元人民币</strong>；但带动效应巨大：2025 年创新药对外授权 157 笔 / <strong>1357 亿美元</strong>，2026H1 约 240 笔 / <strong>1063 亿美元</strong>（首付款 61.58 亿美元）</td><td>政策：国发〔2025〕11 号「人工智能+」、《医药工业发展"十五五"规划》（2026-09-18，2030 年规上医药工业营收超 3.5 万亿、FIC 占全球 25% 以上、设「AI制药高价值应用场景培育」专栏）；经济：MNC 专利悬崖 + 中国分子性价比</td></tr>
+</tbody></table>
+<p><strong>预测（3 年视角）</strong>：</p>
+<ul><li>2027–2028 中国 AI 制药将进入<strong>分化期</strong>：拥有自有数据 + 湿实验闭环的公司（成都先导、药康生物、晶泰）与只有算法 PPT 的公司（部分小市值概念股）将出现 5–10 倍的估值分化。</li><li>链主地位：<strong>不会变</strong>。AI 越普及，对"把分子变成药"的物理产能需求越大，CRDMO 的稀缺性越强。</li></ul>
+<h3>4.2 二级市场股价与估值水平走势</h3>
+<p><strong>板块层面（本地 ClickHouse，基准日 2026-09-30）</strong></p>
+<table>
+<thead><tr><th>板块</th><th>代码</th><th>2025 全年</th><th>2026 年初至 09-30</th><th>R60</th><th>R250</th><th>60日成交额（亿/日）</th><th>量能趋势（近60日/前60日）</th></tr></thead>
+<tbody>
+<tr><td>医疗研发外包（CXO）</td><td>sh881249</td><td><strong>+48.56%</strong></td><td><strong>+62.78%</strong></td><td>+36.99%</td><td>+38.19%</td><td>277.47</td><td><strong>1.84</strong></td></tr>
+<tr><td>医疗服务</td><td>sh881247</td><td>—</td><td>—</td><td>+29.50%</td><td>+18.33%</td><td>344.53</td><td><strong>1.64</strong></td></tr>
+<tr><td>CXO概念</td><td>sh880729</td><td>+29.45%</td><td>+28.60%</td><td>+22.18%</td><td>+18.28%</td><td>428.11</td><td>1.47</td></tr>
+<tr><td>制药装备</td><td>sh881246</td><td>—</td><td>—</td><td>+19.27%</td><td>−5.31%</td><td>7.12</td><td>1.34</td></tr>
+<tr><td>基因概念</td><td>sh880913</td><td>—</td><td>—</td><td>+13.00%</td><td>−5.36%</td><td>476.71</td><td>1.01</td></tr>
+<tr><td>AI医疗概念</td><td>sh880747</td><td>+26.10%（成立至年末）</td><td><strong>−2.65%</strong></td><td>+10.63%</td><td><strong>−9.99%</strong></td><td>580.37</td><td>1.07</td></tr>
+<tr><td>创新药</td><td>sh880652</td><td>+34.10%</td><td>−0.22%</td><td>+7.74%</td><td>−9.20%</td><td>997.00</td><td>1.31</td></tr>
+<tr><td>智能医疗</td><td>sh880933</td><td>+28.42%</td><td>−2.80%</td><td>+5.93%</td><td>−5.84%</td><td>994.13</td><td><strong>0.94</strong></td></tr>
+<tr><td>医疗器械</td><td>sh881241</td><td>+1.11%</td><td>−7.41%</td><td>+5.16%</td><td>−18.88%</td><td>165.93</td><td>0.90</td></tr>
+<tr><td>人工智能</td><td>sh880948</td><td>—</td><td>—</td><td>+2.38%</td><td>−9.82%</td><td>4413.31</td><td><strong>0.76</strong></td></tr>
+<tr><td>化学制药</td><td>sh881231</td><td>—</td><td>—</td><td><strong>−3.73%</strong></td><td>−22.66%</td><td>374.68</td><td>1.12</td></tr>
+<tr><td><em>全市场日均成交额（近20日）</em></td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td><em>18200</em></td><td>—</td></tr>
+</tbody></table>
+<p><strong>读数</strong>：<strong>唯一"涨幅靠前 + 成交额占比扩张"的环节是 CXO / 医疗研发外包</strong>（量能比 1.84）。而"AI医疗概念""智能医疗""人工智能"三个最像 AI 的板块全部缩量或走弱。这是本报告最重要的资金证据。</p>
+<p><strong>申万口径交叉验证（独立第二数据源，同一基准日 2026-09-30，申万一级/二级分类）</strong>：</p>
+<table>
+<thead><tr><th>申万一级</th><th>近5日成交额占比变化</th><th>r60</th><th>r250</th><th>申万二级</th><th>近5日成交额占比变化</th><th>r60</th><th>r20</th></tr></thead>
+<tbody>
+<tr><td>电子</td><td>+1.45 pct</td><td>−18.92%</td><td>+8.52%</td><td>医疗服务</td><td><strong>+0.64 pct</strong></td><td><strong>+24.43%</strong></td><td>+9.70%</td></tr>
+<tr><td><strong>医药生物</strong></td><td><strong>+1.33 pct</strong></td><td><strong>+6.57%</strong></td><td>−15.51%</td><td>生物制品</td><td>+0.33 pct</td><td>+8.73%</td><td>+4.48%</td></tr>
+<tr><td>汽车</td><td>+0.86 pct</td><td>−1.54%</td><td>−23.96%</td><td>化学制药</td><td>+0.31 pct</td><td>+5.06%</td><td>−0.88%</td></tr>
+<tr><td>房地产</td><td>+0.81 pct</td><td>+18.07%</td><td>−14.89%</td><td>元件</td><td>+0.68 pct</td><td>−10.20%</td><td>+5.27%</td></tr>
+<tr><td>—</td><td>—</td><td>—</td><td>—</td><td>半导体</td><td>+0.46 pct</td><td>−24.86%</td><td>−3.93%</td></tr>
+<tr><td>有色金属（流出最多）</td><td><strong>−2.64 pct</strong></td><td>−8.52%</td><td>+2.22%</td><td>软件开发（流出）</td><td>−0.53 pct</td><td>+4.47%</td><td>−5.97%</td></tr>
+<tr><td>非银金融</td><td>−1.03 pct</td><td>−2.10%</td><td>−19.40%</td><td>IT服务Ⅱ</td><td>—</td><td>+2.25%</td><td>−7.47%（r250 −30.25%）</td></tr>
+</tbody></table>
+<ul><li><strong>医药生物是申万一级中近5日成交额占比提升第 2 名的行业（+1.33 pct，仅次于电子 +1.45 pct）</strong>，且 r60 为正（+6.57%）而 r250 为负（−15.51%）——典型的"底部放量、资金刚进场"。</li><li>二级层面，提升最多的医药子行业是 <strong>医疗服务（+0.64 pct、r60 +24.43%、近5日换手 4.48%）</strong>、生物制品（+0.33 pct）、化学制药（+0.31 pct）。</li><li>反向对照：计算机 r250 −27.52%、软件开发 r250 −28.89%、IT服务Ⅱ r250 −30.25%，资金持续流出；有色金属近5日占比流失最多（−2.64 pct）。</li></ul>
+<p>两个<strong>完全独立的口径</strong>（通达信板块指数 vs 申万行业成分股聚合）指向同一结论：<strong>资金在往"医药里的研发服务与生物制品"走，而不是往"AI/计算机"走。</strong> 这构成本报告摘要结论的第二个独立证据。</p>
+<p><strong>个股层面（2026-09-30 收盘，前复权）</strong></p>
+<table>
+<thead><tr><th>公司</th><th>代码</th><th>2025 全年</th><th>2026 年初至 09-30</th><th>R60</th><th>市值（亿）</th><th>PE(TTM)</th></tr></thead>
+<tbody>
+<tr><td>药明康德</td><td>sh603259</td><td>+68.8%</td><td><strong>+88.2%</strong></td><td>+41.9%</td><td>5078.6</td><td>23.4</td></tr>
+<tr><td>凯莱英</td><td>sz002821</td><td>+23.7%</td><td><strong>+104.7%</strong></td><td>+23.2%</td><td>682.7</td><td>65.9</td></tr>
+<tr><td>昭衍新药</td><td>sh603127</td><td><strong>+110.6%</strong></td><td>+41.3%</td><td>+25.7%</td><td>369.4</td><td>37.5</td></tr>
+<tr><td>成都先导</td><td>sh688222</td><td>+91.1%</td><td>+91.6%</td><td>+39.2%</td><td>179.3</td><td>127.9</td></tr>
+<tr><td>美迪西</td><td>sh688202</td><td>+86.9%</td><td>+90.9%</td><td>+42.4%</td><td>144.6</td><td>亏损</td></tr>
+<tr><td>皓元医药</td><td>sh688131</td><td>+102.8%</td><td>+38.4%</td><td>+14.6%</td><td>212.1</td><td>81.8</td></tr>
+<tr><td>康龙化成</td><td>sz300759</td><td>+11.5%</td><td>+59.2%</td><td>+47.1%</td><td>826.2</td><td>48.2</td></tr>
+<tr><td>华大智造</td><td>sh688114</td><td>+29.9%</td><td>+18.3%</td><td>+32.9%</td><td>299.5</td><td>亏损</td></tr>
+<tr><td>恒瑞医药</td><td>sh600276</td><td>+30.3%</td><td><strong>−20.4%</strong></td><td>−14.7%</td><td>3132.8</td><td>40.5</td></tr>
+<tr><td>百济神州</td><td>sh688235</td><td>+66.8%</td><td>−1.6%</td><td>+0.5%</td><td>4078.0</td><td>95.2</td></tr>
+<tr><td>联影医疗</td><td>sh688271</td><td>−0.6%</td><td>−14.2%</td><td>+3.7%</td><td>884.9</td><td>50.0</td></tr>
+<tr><td>润达医疗</td><td>sh603108</td><td>−6.0%</td><td>−33.3%</td><td>+12.0%</td><td>60.3</td><td>亏损</td></tr>
+<tr><td>卫宁健康</td><td>sz300253</td><td>+23.4%</td><td>−20.9%</td><td>+6.7%</td><td>153.7</td><td>亏损</td></tr>
+</tbody></table>
+<p><strong>估值水平</strong>：申万医药生物 PE(TTM，整体法) 截至 2026-09-24 为 44.66 倍、相对沪深300 溢价 236%（金融界）；但板块内部极度分化——药明康德 PE(TTM) <strong>23.4</strong>、艾力斯 <strong>18.7</strong>、艾德生物 <strong>24.6</strong>，而近岸蛋白、百普赛斯（131.3）、义翘神州（117.0）、益诺思（621.9）、南模生物（226.7）已在极高位。港股同类更便宜：中证港股通创新药指数 PE(TTM) 33.33 倍（分位 21.15%），A 股国证创新药 PE 87.69 倍（分位 87.83%）。</p>
+<h3>4.3 一级市场投融资趋势</h3>
+<table>
+<thead><tr><th>口径</th><th>数字</th><th>来源与日期</th></tr></thead>
+<tbody>
+<tr><td>2025 年中国医疗健康一级市场</td><td>1438 起（−7.52%）／<strong>1227.79 亿元（+46.41%）</strong></td><td>医药魔方，2026-01</td></tr>
+<tr><td>2025 年中国创新药一级市场</td><td>445 起／<strong>52.19 亿美元</strong></td><td>医药魔方，2026-01-05</td></tr>
+<tr><td><strong>2026H1 中国医疗健康一级市场</strong></td><td>814 起（+13.8%）／<strong>725.6 亿元（+41.7%）</strong></td><td>医药魔方（经济参考报），2026-07-21</td></tr>
+<tr><td><strong>2026H1 中国创新药融资</strong></td><td><strong>58.1 亿美元（+79.1%）</strong></td><td>医药魔方，2026-07-21</td></tr>
+<tr><td>2026H1 全球创新药融资</td><td>267.5 亿美元（+58.5%）</td><td>医药魔方，2026-07-21</td></tr>
+<tr><td>2025 年全球 AI 药物发现融资</td><td><strong>38 亿美元</strong>（PitchBook）</td><td>PitchBook，2026-01-12</td></tr>
+<tr><td>单笔最大：Isomorphic Labs B 轮</td><td><strong>21 亿美元</strong>（2026-05-12）</td><td>公司公告</td></tr>
+<tr><td>中国 AI 制药一级市场代表案例</td><td>Earendil Labs（华深智药海外）<strong>7.87 亿美元</strong>（2026-03-20）；分子之心累计超 1 亿美元（2026-06-17）；德睿智药 5200 万美元 B 轮（2026-07-08）</td><td>公告/媒体</td></tr>
+</tbody></table>
+<p><strong>读数</strong>：一级市场呈现<strong>"量缩价涨、资金向头部集中"</strong>——2026H1 事件数 +13.8% 但金额 +41.7%。这意味着资金不再撒网式投"AI 概念"，而是集中投少数能兑现的公司。这与二级市场的分化方向一致。</p>
+<h3>4.4 泡沫判断：存在，且集中在"AI 概念纯度最高、收入体量最小"的环节</h3>
+<p><strong>泡沫的三个结构特征</strong>：</p>
+<p><strong>① 收入体量与市值严重脱节</strong></p>
+<table>
+<thead><tr><th>公司</th><th>市值（亿）</th><th>2026H1 营收（亿）</th><th>2026H1 归母（亿）</th><th>R60</th><th>量能比</th><th>PE(TTM)</th><th>市值/年化营收</th></tr></thead>
+<tbody>
+<tr><td>近岸蛋白 sh688137</td><td>112.1</td><td><strong>0.78</strong></td><td><strong>−0.29</strong></td><td><strong>+320.5%</strong></td><td><strong>6.22</strong></td><td>亏损</td><td><strong>71.9 倍</strong></td></tr>
+<tr><td>南模生物 sh688265</td><td>50.7</td><td>2.32</td><td>0.09</td><td>+81.1%</td><td>2.37</td><td>226.7</td><td>10.9 倍</td></tr>
+<tr><td>益诺思 sh688710</td><td>148.3</td><td>4.65</td><td>0.39</td><td>+61.6%</td><td>1.97</td><td><strong>621.9</strong></td><td>15.9 倍</td></tr>
+<tr><td>百普赛斯 sz301080</td><td>236.5</td><td>5.00</td><td>0.98</td><td><strong>+189.1%</strong></td><td>3.87</td><td>131.3</td><td>23.6 倍</td></tr>
+<tr><td>义翘神州 sz301047</td><td>193.4</td><td>3.93</td><td>0.85</td><td><strong>+137.5%</strong></td><td>4.01</td><td>117.0</td><td>24.6 倍</td></tr>
+<tr><td>诺唯赞 sh688105</td><td>140.8</td><td>7.00</td><td>0.11</td><td>+59.6%</td><td>2.75</td><td>亏损</td><td>10.1 倍</td></tr>
+<tr><td><em>对照：药明康德</em></td><td><em>5078.6</em></td><td><em>288.97</em></td><td><em>110.80</em></td><td><em>+41.9%</em></td><td><em>1.02</em></td><td><em>23.4</em></td><td><strong><em>8.8 倍</strong></em></td></tr>
+</tbody></table>
+<p><strong>② 涨幅与基本面背离</strong>：近岸蛋白 60 日 +320.5%，而其 H1 营收仅增长 8.88%、净利润仍亏损；益诺思 250 日 +124.6%，但 PE(TTM) 621.9。</p>
+<p><strong>③ 量能异常</strong>：近岸蛋白 20 日均额 / 250 日均额 = <strong>6.22 倍</strong>、义翘神州 4.01 倍、百普赛斯 3.87 倍——这是典型的<strong>游资接力特征</strong>，而非机构建仓（机构建仓的量能扩张通常是 1.5–2.5 倍，如药明康德 1.02、康龙化成 1.49、凯莱英 1.50、昭衍新药 1.17）。</p>
+<p><strong>反面证据（不构成泡沫的部分）</strong>：</p>
+<ul><li>药明康德 PE(TTM) 23.4、H1 归母 +29.4%、订单 580 亿——<strong>没有泡沫</strong>。</li><li>艾力斯 PE(TTM) 18.7、H1 归母 15.41 亿（+46.6%）、ROE 19.7%——<strong>没有泡沫</strong>。</li><li>艾德生物 PE(TTM) 24.6、毛利 83.4%、ROE 8.2%——<strong>没有泡沫</strong>。</li></ul>
+<p><strong>结论</strong>：AI 制药概念的整体估值<strong>不算泡沫</strong>（龙头 PE 20–25 倍），但<strong>上游科研试剂/模式动物/安评的小市值子板块已出现明显的边缘概念股泡沫</strong>，其中近岸蛋白、百普赛斯、义翘神州、南模生物、益诺思五只的风险收益比已经极差。<strong>本报告 20 标的中不包含这五只。</strong></p>
+<hr>
+<h2>五、技术与估值：好公司的"便宜"买点</h2>
+<h3>5.1 板块层面的周期位置（威科夫视角）</h3>
+<ul><li><strong>吸筹阶段（Accumulation）</strong>：CXO 环节的周线中枢构建于 2024Q4–2026Q2（医疗研发外包指数），2025 年全年 +48.56% 是第一段拉升，2026 年 +62.78% 是第二段——<strong>当前处于"拉升后段的中枢震荡"</strong>，不是吸筹区。</li><li><strong>Spring（破底翻）证据</strong>：本报告候选池中，2026 年 9 月 11 日出现<strong>集体性二买/三买信号</strong>（药明康德、康龙化成、凯莱英、昭衍新药、药石科技、成都先导、美迪西、皓元医药、键凯科技、联影医疗等十余只同日触发），这符合威科夫"测试后同步启动"的特征，说明 9/11 是<strong>新一轮攻击的起点</strong>，而非派发。</li><li><strong>派发阶段（Distribution）</strong>：仅在<strong>AI 概念纯度最高的小市值股</strong>上出现（近岸蛋白 pos250 = 94.3%、量能比 6.22；百普赛斯 pos250 = 100.0%、量能比 3.87），且均处历史新高附近——属"拉升末端"。</li></ul>
+<h3>5.2 逐标的周期定位（周线中枢 + 日线量价）</h3>
+<table>
+<thead><tr><th>公司</th><th>周线中枢区间</th><th>收盘相对周线上沿</th><th>日线末笔</th><th>日线量能比（20/250日）</th><th>缠论买点</th><th>周期判读</th></tr></thead>
+<tbody>
+<tr><td>药明康德</td><td>[85.53, 104.97]</td><td><strong>+59.4%</strong></td><td>向上（149.7→171.2，9/11–9/22，未击穿）</td><td>1.02</td><td>8/20 一卖、9/22 二卖（未冻结）</td><td>周线拉升第三段 + 日线高位缩量中枢震荡（洗盘，非派发）</td></tr>
+<tr><td>康龙化成</td><td>[23.50, 29.11]</td><td>+54.5%</td><td>向上（39.66→46.35，未击穿）</td><td>1.49</td><td><strong>9/11 二买+三买（已冻结）</strong></td><td>周线离开中枢后第一次回踩确认，日线三买成立</td></tr>
+<tr><td>凯莱英</td><td>[87.70, 92.27]</td><td><strong>+104.4%</strong></td><td>向上（154.2→194.32，未击穿）</td><td>1.50</td><td>6/14 三买（冻结）</td><td>周线远离中枢，日线中枢 [109.06,128.69] 上方 +46.6%，趋势中后段</td></tr>
+<tr><td>昭衍新药</td><td>[26.76, 42.77]</td><td><strong>+15.3%（刚突破）</strong></td><td>向上（40.4→49.72，未击穿）</td><td>1.17</td><td><strong>9/11 二买（已冻结）</strong></td><td>周线中枢上沿刚突破 + 日线加速（R5 +6.9%），最佳"突破确认"位置</td></tr>
+<tr><td>药石科技</td><td>[36.20, 40.55]</td><td>+36.5%</td><td>向上（40.4→57.55，9/11–9/30）</td><td><strong>2.17</strong></td><td><strong>9/11 二买（已冻结）</strong></td><td>日线中枢 [40.4,44.1] 放量突破 +25.5%，量价配合最健康</td></tr>
+<tr><td>成都先导</td><td>[22.31, 30.13]</td><td>+48.3%</td><td>向上（29.6→47.58，未击穿）</td><td>1.63</td><td><strong>9/11 二买（已冻结）</strong></td><td>周线中枢上方 + 日线中枢突破 + 放量，结构完整</td></tr>
+<tr><td>药康生物</td><td>[12.75, 17.31]</td><td><strong>+119.2%</strong></td><td>向上（16.84→43.47，已 33 根）</td><td>2.05</td><td>6/8 二买、3/29 二买（冻结）</td><td>主升段（6–8 月）已完成，当前高位震荡（洗盘）</td></tr>
+<tr><td>毕得医药</td><td>[43.21, 58.93]</td><td>+30.0%</td><td>向上（54.54→80.8）</td><td>2.51</td><td><strong>9/11 二买（已冻结）</strong></td><td>周线中枢上沿 +30%，日线放量，结构偏强</td></tr>
+<tr><td>诺禾致源</td><td>[11.84, 17.45]</td><td>+13.3%</td><td>向上（12.69→21.49）</td><td><strong>2.97</strong></td><td><strong>9/11 二买（已冻结）</strong></td><td>周线中枢刚突破 + 日线放量，与昭衍新药同型</td></tr>
+<tr><td>奥浦迈</td><td>[34.19, 48.00]</td><td>+65.9%</td><td>向上（51.0→88.54）</td><td>3.21</td><td>8/31 二买（冻结）</td><td>已离开中枢较远，量能偏大，追高风险上升</td></tr>
+<tr><td>键凯科技</td><td>[85.16, 91.03]</td><td>+16.9%</td><td>向上（72.74→110.65，9/11–9/30）</td><td>2.97</td><td><strong>9/11 二买（已冻结）</strong></td><td>周线中枢上方 + 日线二买，但盈利极薄（H1 归母 0.03 亿）</td></tr>
+<tr><td>东富龙</td><td>[21.30, 29.05]</td><td><strong>−43.4%（中枢下方）</strong></td><td>向上（12.75→16.92）</td><td>1.41</td><td>7/23、7/5 二买（冻结）</td><td>周线在长期中枢下方，日线二买——<strong>底部反转早期</strong></td></tr>
+<tr><td>美迪西</td><td>[51.45, 78.25]</td><td>+37.6%</td><td>向上（87.4→120.0）</td><td>1.63</td><td><strong>9/11 二买+三买（已冻结）</strong></td><td>周线中枢上方，日线三买，但 PE 为负</td></tr>
+<tr><td>华大智造</td><td>[60.82, 77.23]</td><td>−6.9%（中枢内）</td><td>向上（53.3→79.72）</td><td>1.82</td><td><strong>9/11 二买（已冻结）</strong></td><td>周线中枢内部震荡，日线二买</td></tr>
+<tr><td>艾德生物</td><td>[18.97, 23.34]</td><td>−8.6%（中枢下方）</td><td>向上（16.45→21.81）</td><td>1.11</td><td><strong>9/11 二买（已冻结）</strong></td><td>周线中枢下方 + 日线二买——低位吸筹</td></tr>
+<tr><td>艾力斯</td><td>周线无有效中枢</td><td>—</td><td>向下（123.17→97.85，8/14–9/14）</td><td>1.05</td><td>9/14 二买（未冻结）</td><td>日线回调至中枢上沿 +2.2%，估值最低，等底分型确认</td></tr>
+<tr><td>海思科</td><td>[18.96, 25.23]</td><td><strong>+146.5%</strong></td><td>向下（70.23→59.37，9/4–9/30）</td><td>0.90</td><td>9/4 二卖（冻结）</td><td>周线远离中枢 + 日线向下笔，<strong>处于派发/回调中</strong></td></tr>
+<tr><td>恒瑞医药</td><td>[35.35, 40.92]</td><td>+15.3%</td><td>向上（41.89→47.39，9/11–9/30）</td><td>0.77</td><td><strong>9/11 一买（已冻结）</strong></td><td>周线中枢上方 + 日线一买，pos250 = <strong>17.2%（低位）</strong>——典型吸筹区底分型确认</td></tr>
+<tr><td>百济神州</td><td>周线无有效中枢</td><td>—</td><td>向上（244.23→272.71）</td><td>0.72</td><td><strong>9/11 二买（已冻结）</strong></td><td>日线中枢 [229.98,259.0] 上方 +2.1%，量能萎缩，等放量</td></tr>
+<tr><td>皓元医药</td><td>[32.83, 47.65]</td><td><strong>+108.8%</strong></td><td>向上（85.12→111.3）</td><td>1.11</td><td>9/11 三买（冻结）</td><td>周线远离中枢，日线三买后回调</td></tr>
+</tbody></table>
+<p><strong>买点小结（已按第三重证据修正，见 §5.3）</strong>：</p>
+<ul><li><strong>最健康的"突破确认型"买点</strong>（周线中枢刚突破 + 日线放量二买 + <strong>筹码集中</strong>）：<strong>昭衍新药（户数 −10.07%）、诺禾致源（−11.17%）、药石科技（−3.41%）</strong>。毕得医药结构同样健康，但<strong>筹码在分散（户数 +23.07%）</strong>，降级为"结构好、筹码差"。</li><li><strong>"低位吸筹型"买点</strong>（pos250 &lt; 30%、周线中枢下方/内部、日线一买或二买）：<strong>东富龙（户数 −2.82%）、艾德生物（+2.19%）、华大智造（+5.55%）</strong>。<strong>恒瑞医药原列入此档，现修正</strong>：pos250 虽仅 17.2%、日线一买成立，但<strong>股东户数 +17.64%（Q1→Q2 散户显著进场）</strong>，与"吸筹"特征相悖，改判为"价格低位、筹码未集中"。</li><li><strong>"高位追高风险型"</strong>（周线远离中枢 &gt;100% 或日线向下笔）：<strong>海思科（+146.5%、且户数 +129.67%）、皓元医药（+108.8%、户数 +28.96%）、药康生物（+119.2%）、奥浦迈（+65.9%、户数 +23.20%）、凯莱英（+104.4%）</strong>。</li></ul>
+<h3>5.3 筹码与机构预期的交叉验证（第三重证据）</h3>
+<p>前两重证据是<strong>本地 K 线 + 缠论结构</strong>。第三重是<strong>股东户数（筹码集中度）与机构评级/目标价（卖方预期）</strong>，数据源：股东户数取 cninfo <code>stock_hold_num_cninfo(date="20260630")</code>（本期 2026-06-30 vs 上期 2026-03-31，全池 105 只全部命中）；机构评级取 AKShare <code>stock_institute_recommend</code>（最新投资评级）。</p>
+<p><strong>（1）全池统计规律：筹码集中组显著跑赢</strong></p>
+<table>
+<thead><tr><th>分组</th><th>只数</th><th>平均 R60</th></tr></thead>
+<tbody>
+<tr><td>股东户数<strong>减少</strong>（筹码集中）</td><td>57</td><td><strong>+23.77%</strong></td></tr>
+<tr><td>股东户数<strong>增加</strong>（筹码分散）</td><td>48</td><td><strong>+13.32%</strong></td></tr>
+<tr><td>差值</td><td>—</td><td><strong>+10.45 pct</strong></td></tr>
+</tbody></table>
+<p>这是一个独立于技术分析的量化规律：<strong>在 2026 年这轮医药行情里，"户数在减少"的股票平均跑赢"户数在增加"的股票 10.45 个百分点。</strong></p>
+<p><strong>（2）20 标的的筹码与卖方预期</strong></p>
+<table>
+<thead><tr><th>#</th><th>公司</th><th>股东户数（Q1→Q2）</th><th>户数变动</th><th>筹码判读</th><th>机构目标价上行空间</th><th>与正文结论</th></tr></thead>
+<tbody>
+<tr><td>1</td><td>药明康德 sh603259</td><td>285,204 → 261,426</td><td><strong>−8.34%</strong></td><td>集中</td><td>中金 167.0 → <strong>−0.2%（已到目标价）</strong></td><td>✅ 一致（洗盘非派发）／⚠️ 估值警示</td></tr>
+<tr><td>2</td><td>百济神州 sh688235</td><td>35,393 → 39,678</td><td>+12.11%</td><td>分散</td><td>中金 340.0 → +28.6%</td><td>⚠️ 冲突</td></tr>
+<tr><td>3</td><td>昭衍新药 sh603127</td><td>82,720 → 74,389</td><td><strong>−10.07%</strong></td><td>集中</td><td>中金 57.0 → +15.6%</td><td>✅ 一致（强化突破判断）</td></tr>
+<tr><td>4</td><td>成都先导 sh688222</td><td>25,798 → 24,764</td><td>−4.01%</td><td>集中</td><td>无目标价</td><td>✅ 一致</td></tr>
+<tr><td>5</td><td>恒瑞医药 sh600276</td><td>458,321 → 539,160</td><td><strong>+17.64%</strong></td><td><strong>分散</strong></td><td>中金 62.8 → +32.9%；华创 72.7 → +54.0%</td><td>❌ <strong>冲突，已修正</strong></td></tr>
+<tr><td>6</td><td>毕得医药 sh688073</td><td>4,924 → 6,060</td><td><strong>+23.07%</strong></td><td><strong>分散</strong></td><td>华创 99.0 → +29.2%</td><td>❌ <strong>冲突，已降级</strong></td></tr>
+<tr><td>7</td><td>奥浦迈 sh688293</td><td>4,880 → 6,012</td><td><strong>+23.20%</strong></td><td><strong>分散</strong></td><td>无目标价</td><td>❌ 冲突（技术分原已最低）</td></tr>
+<tr><td>8</td><td>艾力斯 sh688578</td><td>20,285 → 21,039</td><td>+3.72%</td><td>中性偏分散</td><td>无目标价</td><td>⚠️ 轻微冲突</td></tr>
+<tr><td>9</td><td>药康生物 sh688046</td><td>9,140 → 7,812</td><td><strong>−14.53%</strong></td><td><strong>集中（全池最集中之一）</strong></td><td>无目标价</td><td>✅ 一致</td></tr>
+<tr><td>10</td><td>海思科 sz002653</td><td>10,654 → 24,469</td><td><strong>+129.67%</strong></td><td><strong>极度分散</strong></td><td>山西 82.1 → +32.0%；东方 78.0 → +25.4%</td><td>✅ 一致（确认派发，全池第2高）</td></tr>
+<tr><td>11</td><td>药石科技 sz300725</td><td>43,282 → 41,805</td><td>−3.41%</td><td>集中</td><td>无目标价</td><td>✅ 一致</td></tr>
+<tr><td>12</td><td>诺禾致源 sh688315</td><td>10,260 → 9,114</td><td><strong>−11.17%</strong></td><td>集中</td><td>中金 16.5 → <strong>−16.5%（目标价低于现价）</strong></td><td>✅ 筹码一致／❌ <strong>卖方看空，已警示</strong></td></tr>
+<tr><td>13</td><td>康龙化成 sz300759</td><td>86,330 → 94,179</td><td>+9.09%</td><td>分散</td><td>无目标价</td><td>⚠️ 冲突</td></tr>
+<tr><td>14</td><td>键凯科技 sh688356</td><td>6,183 → 7,443</td><td><strong>+20.38%</strong></td><td><strong>分散</strong></td><td>无评级</td><td>⚠️ 冲突（原已给"低概率"）</td></tr>
+<tr><td>15</td><td>东富龙 sz300171</td><td>30,150 → 29,299</td><td>−2.82%</td><td>集中</td><td>无评级</td><td>✅ 一致</td></tr>
+<tr><td>16</td><td>艾德生物 sz300685</td><td>29,264 → 29,904</td><td>+2.19%</td><td>中性</td><td>无目标价</td><td>— 中性</td></tr>
+<tr><td>17</td><td>华大智造 sh688114</td><td>16,999 → 17,942</td><td>+5.55%</td><td>轻度分散</td><td>中金 83.0 → +15.4%</td><td>⚠️ 轻微冲突</td></tr>
+<tr><td>18</td><td>美迪西 sh688202</td><td>13,496 → 14,249</td><td>+5.58%</td><td>轻度分散</td><td>无目标价</td><td>⚠️ 轻微冲突</td></tr>
+<tr><td>19</td><td>凯莱英 sz002821</td><td>45,422 → 51,711</td><td>+13.85%</td><td>分散</td><td>中金 196.0 → +3.9%</td><td>⚠️ 冲突（目标价空间仅 3.9%）</td></tr>
+<tr><td>20</td><td>皓元医药 sh688131</td><td>12,315 → 15,882</td><td><strong>+28.96%</strong></td><td><strong>分散</strong></td><td>无目标价</td><td>❌ 冲突</td></tr>
+</tbody></table>
+<p><strong>（3）三条必须披露的结论修正</strong></p>
+<p><strong>① 20 标的中只有 7 只筹码在集中</strong>（药明康德、昭衍新药、成都先导、药康生物、药石科技、诺禾致源、东富龙），<strong>其余 13 只股东户数在增加</strong>。这意味着正文 §6.2 的排序<strong>高估了部分标的的筹码质量</strong>，本版已按此修正买点分档与风险标注，但<strong>打分表未重算总分</strong>——若把筹码纳入打分，毕得医药、奥浦迈、皓元医药、键凯科技、恒瑞医药的名次应下调，药康生物、东富龙应上调。</p>
+<p><strong>② 药明康德的卖方目标价已等于现价</strong>：中金公司 2026-09-19 目标价 167.0 元 vs 现价 167.34 元，上行空间 <strong>−0.2%</strong>。这与报告"高概率 1–2 倍"的结论<strong>不矛盾但需要打折</strong>——卖方最新目标价只反映 12 个月维度，而报告看的是三年；但至少说明<strong>短期（12 个月）卖方不认为有显著上行空间</strong>。</p>
+<p><strong>③ 诺禾致源出现唯一一次"目标价低于现价"</strong>：中金公司 2026-09-07 目标价 16.5 元 vs 现价 19.77 元，<strong>−16.5%</strong>。该股筹码集中（户数 −11.17%）与技术结构（周线中枢刚突破 + 日线放量 2.97 倍）都好，但<strong>卖方给出的是下行目标价</strong>，且 H1 营收仅 +7.1%、归母 −19.8%。<strong>三重证据在此出现分歧：筹码与技术看多，基本面与卖方看空。</strong> 本版维持第 12 位排序，但风险栏已加警示。</p>
+<p><strong>（4）龙虎榜/机构席位（已核实）</strong></p>
+<p>2026-09-30 龙虎榜机构席位数据（AKShare 新浪口径，<code>lhb_jgmx.json</code>，37 条记录）中，本报告候选池相关的机构净卖出样本：<strong>康希诺 sh688185 机构席位卖出 2052.8 万元、买入 0（净卖出 2052.8 万元）</strong>；<strong>万邦医药 sz301520 机构买入 6610.2 万元、卖出 11544.68 万元（净卖出 4934.5 万元）</strong>——后者同时具备"股东户数 +35.96%、R60 +88.26%、周线高于中枢上沿 +102.8%"三个特征，是又一个"机构派发 + 筹码分散 + 已大幅上涨"的边缘炒作样本。<strong>本报告未做全池席位归因</strong>（当日上榜仅 37 条记录，覆盖度不足）。</p>
+<hr>
+<h2>六、研究目的与最终交付：20 个优质标的</h2>
+<h3>6.1 第一步：行业动态打分框架（按生命周期与盈利模式定制权重）</h3>
+<p><strong>AI 制药的核心商业逻辑与驱动因子（决定权重分配）</strong></p>
+<ol><li><strong>AI 本身不产生收入</strong>：全球 AI 制药市场 2025 年仅 24.9 亿美元，中国仅 6 亿元人民币——<strong>不能给"AI 收入"定价</strong>。</li><li><strong>收入来自三个可验证的传导链</strong>：</li></ol>
+<ul><li>链 A（BD 出海）：中国创新药对外授权 2025 年 1357 亿美元 → 首付款 61.58 亿美元（2026H1）形成现金流 → 药企有能力继续投研发；</li><li>链 B（研发外包）：CXO &amp; 科研服务 2025 年归母净利 +85.5%、2026Q1 +26.4% → 订单回暖已验证；</li><li>链 C（耗材用量）：AI 提高分子通量 → 分子砌块、试剂、模式动物、安评的<strong>用量增长</strong>（药石科技在手订单 +20% 以上、药康生物 H1 归母 +56.3%、奥浦迈培养基毛利 67.81%）。</li></ul>
+<ol><li><strong>生命周期位置</strong>：商业化确认期——<strong>故事已结束，利润兑现在进行中</strong>。因此"财务成长性"和"竞争壁垒"的权重必须最高，而"估值"与"技术周期"只做筛选与择时。</li></ol>
+<p><strong>动态权重（满分 100）</strong></p>
+<table>
+<thead><tr><th>维度</th><th>权重</th><th>定制理由</th><th>细项</th></tr></thead>
+<tbody>
+<tr><td><strong>财务成长性</strong></td><td><strong>30</strong></td><td>商业化确认期的核心是"收入与利润是否真的在增长"，而不是概念</td><td>H1'26 营收增速（10）+ H1'26 归母增速/盈亏（10）+ 毛利率与 ROE（10）</td></tr>
+<tr><td><strong>竞争壁垒（护城河）</strong></td><td><strong>30</strong></td><td>本行业最容易出现"边缘概念股"，必须用壁垒把不赚钱的环节挡在外面</td><td>环节地位（12：核心12/次核心8/边缘4）+ 定价权即毛利率（8）+ 国产替代稀缺性（10）</td></tr>
+<tr><td><strong>估值水平</strong></td><td><strong>20</strong></td><td>板块内部估值分化极大（PE 18.7 到 621.9），估值是避免买入泡沫的唯一闸门</td><td>PE(TTM) 分档（10）+ PB 或 PS 分档（10）</td></tr>
+<tr><td><strong>技术周期</strong></td><td><strong>20</strong></td><td>用户口径要求技术面只作择时辅助，故给最低权重，但保留否决权</td><td>周线中枢位置（10）+ 日线量价结构与量能比（10）</td></tr>
+</tbody></table>
+<blockquote><strong>动态调整规则</strong>：若某标的技术周期得分 ≤ 4（处于派发或加速末端），即使总分靠前也在结论中降级处理，并明确标注「追高风险」。</blockquote>
+<h3>6.2 第二步：打分与排序（降序）</h3>
+<table>
+<thead><tr><th>#</th><th>公司名称与代码</th><th>所处核心环节</th><th>动态框架打分（总分／成长／壁垒／估值／技术）</th><th>核心投资论点（护城河与增长引擎）</th><th>估值与技术周期位置</th><th>主要风险</th><th>完成 1–10 倍涨幅的概率 / 涨幅倍数</th></tr></thead>
+<tbody>
+<tr><td>1</td><td><strong>药明康德</strong> sh603259</td><td>中游 CRDMO（<strong>链主</strong>）</td><td><strong>71.7</strong> / 19.8 / 27.4 / 12.5 / 12.0（周6 日6）</td><td>全球唯一具备全链条定价权的 CRDMO；在手订单 580.0 亿元（+28.8%）、TIDES 收入 113.7 亿元（+96%）；AI 越强订单越多</td><td>PE(TTM) 23.4、PB 6.2；周线中枢 [85.53,104.97] 上方 +59.4%，日线缩量整理（v5/v60=0.63）；<strong>股东户数 −8.34%（筹码集中）</strong>；⚠️ <strong>中金目标价 167.0 ≈ 现价（上行 −0.2%）</strong></td><td>地缘政治（生物安全法案类）风险；海外客户集中度；一次性收益不可持续；<strong>卖方 12 个月目标价已无上行空间</strong></td><td><strong>高 / 1–2 倍</strong>（市值 5078 亿，10 倍不现实，但确定性最高）</td></tr>
+<tr><td>2</td><td><strong>百济神州</strong> sh688235</td><td>下游 Biopharma（需求侧）</td><td><strong>68.9</strong> / 25.4 / 29.0 / 4.5 / 10.0（周4 日6）</td><td>中国唯一全球化商业化平台；H1 营收 222.20 亿（+26.8%）、归母 32.71 亿（+627%）；2026 收入指引 449–462 亿元</td><td>PE(TTM) 95.2（2026H1 年化 PE 62.3）；日线中枢上方 +2.1%，9/11 二买已冻结，量能萎缩</td><td>单品依赖（泽布替尼）；美国药价政策；PE 偏高</td><td><strong>中 / 2–4 倍</strong></td></tr>
+<tr><td>3</td><td><strong>昭衍新药</strong> sh603127</td><td>上游/中游 临床前安评</td><td><strong>68.2</strong> / 17.8 / 22.4 / 13.0 / 15.0（周9 日6）</td><td>GLP 安评龙头；周线中枢 [26.76,42.77] 刚突破 +15.3%，9/11 日线二买已冻结，R5 +6.9% 加速</td><td>PE(TTM) 37.5；<strong>利润质量存疑</strong>：H1 归母 7.48 亿主要来自实验模型（猴子）公允价值变动，主营非临床研究毛利仅 22.99%、收入 +5.27%</td><td>实验模型价格回落会直接抹掉利润；安评价格战</td><td><strong>中 / 1.5–3 倍</strong></td></tr>
+<tr><td>4</td><td><strong>成都先导</strong> sh688222</td><td>中游 DEL+AI 平台</td><td><strong>67.9</strong> / 20.9 / 27.5 / 4.5 / 15.0（周6 日9）</td><td>A 股唯一"1.2 万亿化合物 DEL 库 + AI 平台 HAILO + 化合物 IP 转让收费"闭环；H1 营收 +52.4%、归母 +61.2%、13 个项目 IP 转让</td><td>PE(TTM) 127.9、PB 11.7（估值高）；周线中枢上方 +48.3%，日线中枢突破 +32.2%，9/11 二买冻结，量能 1.63</td><td>估值极高；IP 转让收入不稳定；DEL 技术被替代</td><td><strong>中 / 2–5 倍</strong></td></tr>
+<tr><td>5</td><td><strong>恒瑞医药</strong> sh600276</td><td>下游 创新药龙头</td><td><strong>66.9</strong> / 10.9 / 28.0 / 13.0 / 15.0（周9 日6）</td><td>创新药龙头 + 最完整 AI 研发体系；2025 年 BD 三连（GSK 120 亿美元、BMS 152 亿美元、诺和诺德 26 亿美元）；毛利 86.33%</td><td>PE(TTM) 40.5、PB 4.9；<strong>pos250 = 17.2%（全池最低之一）</strong>，9/11 日线<strong>一买</strong>已冻结，周线中枢上方 +15.3%；⚠️ <strong>股东户数 +17.64%（筹码分散，与"吸筹"相悖）</strong></td><td>H1 营收 −1.9%（BD 基数效应）；集采与医保谈判降价；<strong>户数增加说明散户在进场、筹码未集中，一买信号可靠性打折</strong></td><td><strong>高 / 1.5–3 倍</strong>（筹码质量弱于原判断）</td></tr>
+<tr><td>6</td><td><strong>毕得医药</strong> sh688073</td><td>上游 分子砌块</td><td><strong>66.6</strong> / 12.6 / 23.0 / 13.0 / 18.0（周9 日9）</td><td>分子砌块龙头；H1 归母 1.03 亿（+40.7%）、毛利 50.42%；周线中枢上沿 +30% + 日线放量二买</td><td>PE(TTM) 38.3、PB 3.4（全池估值最合理的成长股之一）；量能比 2.51；华创目标价 99.0 → +29.2%；⚠️ <strong>股东户数 +23.07%（筹码分散，结构好但筹码差）</strong></td><td>营收增速仅 +8.8%；海外收入占比与关税；<strong>筹码在分散</strong></td><td><strong>中 / 2–4 倍</strong></td></tr>
+<tr><td>7</td><td><strong>奥浦迈</strong> sh688293</td><td>上游 细胞培养基</td><td><strong>66.6</strong> / 26.0 / 24.6 / 10.0 / 6.0（周4 日2）</td><td>细胞培养产品毛利 <strong>67.81%</strong>，是生物药耗材国产替代核心；H1 营收 +155.2%、归母 +230.3%</td><td>PE(TTM) 88.3；<strong>技术分最低（6）</strong>——周线中枢上方 +65.9%、量能比 3.21，已进入追高区</td><td><strong>+155% 增速主要由并购澎立生物贡献，培养基内生增速约 20%</strong>；CDMO 分部毛利 −49.51%；⚠️ <strong>股东户数 +23.20%（筹码分散）</strong></td><td><strong>中 / 2–4 倍</strong>（需等回调）</td></tr>
+<tr><td>8</td><td><strong>艾力斯</strong> sh688578</td><td>下游 创新药</td><td><strong>65.3</strong> / 21.3 / 23.0 / 14.0 / 7.0（周4 日3）</td><td>H1 营收 33.20 亿（+39.9%）、归母 15.41 亿（+46.6%）、毛利 <strong>94.85%</strong>、ROE <strong>19.7%</strong>、PE(TTM) <strong>18.7</strong>——全池"质优价廉"第一</td><td>日线回调至中枢 [99.77,109.21] 上沿 +2.2%，9/14 二买未冻结；日线末笔仍向下，需等底分型确认</td><td>三代 EGFR TKI 单品依赖（伏美替尼）；竞品/仿制冲击</td><td><strong>高 / 1–2 倍</strong></td></tr>
+<tr><td>9</td><td><strong>药康生物</strong> sh688046</td><td>上游 模式动物</td><td><strong>64.0</strong> / 16.5 / 27.5 / 8.0 / 12.0（周3 日9）</td><td>基因编辑小鼠全球主要供应方，毛利 <strong>65.07%</strong>、H1 归母 +56.3%；AI 生成分子后必须做动物验证</td><td>PE(TTM) 85.2；周线中枢上方 <strong>+119.2%</strong>（已走完主升），当前高位震荡；✅ <strong>股东户数 −14.53%（全池最集中之一，9,140→7,812 户）</strong></td><td>猴子/小鼠价格波动；科研经费周期；估值偏高</td><td><strong>中 / 2–5 倍</strong></td></tr>
+<tr><td>10</td><td><strong>海思科</strong> sz002653</td><td>下游 创新药</td><td><strong>64.0</strong> / 30.0 / 22.0 / 6.0 / 6.0（周3 日3）</td><td>H1 营收 30.96 亿（+54.7%）、归母 8.51 亿（+427%）、ROE 18.3%；2026-06-01 与礼来达成最高 30.54 亿美元授权</td><td>PE(TTM) 74.7、PB 13.0；<strong>周线中枢上方 +146.5%、日线向下笔（9/4 二卖已冻结）——处于派发/回调中</strong>；❌ <strong>股东户数 +129.67%（10,654→24,469 户，全池第 2 高）——筹码派发获独立确认</strong></td><td>技术位置最差（技术分 6）；BD 一次性收入；PB 13 倍；<strong>筹码已大幅分散</strong></td><td><strong>中 / 2–4 倍</strong>（需等回调至中枢）</td></tr>
+<tr><td>11</td><td><strong>药石科技</strong> sz300725</td><td>中游 分子砌块+AI</td><td><strong>60.9</strong> / 10.7 / 23.2 / 12.0 / 15.0（周6 日9）</td><td>分子砌块全球龙头 + AI 全链条布局（靶点到 Hit、Hit 到 Lead）；2026H1 在手订单 +20% 以上；周线中枢上沿 +36.5%、日线放量 2.17 倍</td><td>PE(TTM) 61.4、PB 2.85；9/11 日线二买已冻结</td><td>毛利仅 32.49%；营收 +15.2% 但归母基数低（0.99 亿）</td><td><strong>中 / 2–4 倍</strong></td></tr>
+<tr><td>12</td><td><strong>诺禾致源</strong> sh688315</td><td>上游 测序服务+多组学数据</td><td><strong>60.5</strong> / 7.8 / 23.2 / 11.5 / 18.0（周9 日9）</td><td>多组学数据服务；周线中枢 [11.84,17.45] 刚突破 +13.3%，日线放量比 <strong>2.97</strong>，9/11 二买已冻结——与昭衍同型的最佳结构</td><td>PE(TTM) 54.4、PB 3.1；但 H1 营收仅 +7.1%、归母 −19.8%；✅ <strong>股东户数 −11.17%（筹码集中）</strong>；❌ <strong>中金目标价 16.5 → 上行 −16.5%（低于现价，全池唯一）</strong></td><td>成长性弱；测序服务价格战；<strong>卖方给出下行目标价，三重证据在此分歧（筹码/技术看多 vs 基本面/卖方看空）</strong></td><td><strong>中 / 2–4 倍</strong></td></tr>
+<tr><td>13</td><td><strong>康龙化成</strong> sz300759</td><td>中游 CXO 全流程</td><td><strong>58.5</strong> / 10.7 / 23.3 / 9.5 / 15.0（周6 日9）</td><td>全流程 CXO 第二极；H1 营收 75.95 亿（+17.9%）；<strong>9/11 日线二买+三买同时冻结</strong>，周线中枢 [23.5,29.11] 上方 +54.5%</td><td>PE(TTM) 48.2、PB 5.05；量能比 1.49（机构型建仓）</td><td>归母仅 +7.0%、毛利 32.7%；海外订单与汇率</td><td><strong>高 / 1.5–3 倍</strong></td></tr>
+<tr><td>14</td><td><strong>键凯科技</strong> sh688356</td><td>上游 PEG 衍生物</td><td><strong>58.0</strong> / 14.8 / 23.2 / 7.0 / 13.0（周4 日9）</td><td>PEG 药用辅料细分龙头，毛利 <strong>72.06%</strong>；H1 营收 +42.6%；周线中枢上方 +16.9%，日线二买冻结</td><td>PE(TTM) 151.6、PB 5.0；<strong>H1 归母仅 0.03 亿（−86.8%）</strong>，盈利极薄；⚠️ <strong>股东户数 +20.38%（筹码分散）</strong></td><td>盈利无法兑现；单一辅料赛道天花板；<strong>筹码在分散</strong></td><td><strong>低 / 2–5 倍</strong>（高赔率、低概率）</td></tr>
+<tr><td>15</td><td><strong>东富龙</strong> sz300171</td><td>中游 制药装备</td><td><strong>57.8</strong> / 13.1 / 17.2 / 15.5 / 12.0（周3 日9）</td><td>制药装备龙头；H1 营收 25.35 亿、归母 1.08 亿（+134.5%）；<strong>周线在长期中枢下方 −43.4%，日线二买——底部反转早期</strong></td><td>PE(TTM) 48.0、PB <strong>1.59</strong>（全池最低之一）；7/23 与 7/5 二买已冻结；✅ <strong>股东户数 −2.82%（筹码集中）</strong></td><td>毛利仅 32.17%、无定价权；核心部件依赖进口</td><td><strong>中 / 1.5–3 倍</strong></td></tr>
+<tr><td>16</td><td><strong>艾德生物</strong> sz300685</td><td>下游 肿瘤伴随诊断</td><td><strong>57.7</strong> / 10.2 / 23.0 / 14.5 / 10.0（周4 日6）</td><td>伴随诊断龙头，毛利 <strong>83.41%</strong>、ROE 8.17%、PE(TTM) 24.6、PB 4.4；周线中枢下方 −8.6% + 9/11 日线二买（低位吸筹）</td><td>估值合理但 H1 营收 −3.5%、归母 −12.1%；周线中枢下方</td><td>院内检测需求与集采降价；成长性停滞</td><td><strong>中 / 1.5–3 倍</strong></td></tr>
+<tr><td>17</td><td><strong>华大智造</strong> sh688114</td><td>上游 基因测序仪（<strong>卡脖子突破者</strong>）</td><td><strong>55.7</strong> / 11.5 / 27.7 / 3.5 / 13.0（周4 日9）</td><td>中国唯一规模化的测序仪厂商（壁垒分 27.7，全池第 3）；H1 营收 13.66 亿（+18.9%）、毛利 57.03%；日线二买 9/11 已冻结</td><td><strong>PE 为负（H1 亏损 1.58 亿）</strong>，估值分仅 3.5；周线中枢 [60.82,77.23] 内部</td><td>持续亏损；Illumina 竞争；专利诉讼</td><td><strong>中 / 2–5 倍</strong>（赔率最高的卡脖子标的）</td></tr>
+<tr><td>18</td><td><strong>美迪西</strong> sh688202</td><td>中游 临床前 CRO</td><td><strong>55.2</strong> / 22.5 / 16.2 / 1.5 / 15.0（周6 日9）</td><td>H1 营收 7.61 亿（+40.9%）、归母 0.52 亿（扭亏）、R60 +42.4%；9/11 日线二买+三买同时冻结</td><td><strong>PE 为负（TTM 亏损）</strong>；周线中枢上方 +37.6%，量能比 1.63</td><td>壁垒分最低（16.2）；临床前 CRO 竞争激烈、无定价权</td><td><strong>中 / 2–5 倍</strong>（弹性大、质地弱）</td></tr>
+<tr><td>19</td><td><strong>凯莱英</strong> sz002821</td><td>中游 小分子 CDMO</td><td><strong>54.4</strong> / 9.2 / 23.2 / 10.0 / 12.0（周3 日9）</td><td>小分子 CDMO 龙头 + 多肽产能；2026 年初至 09-30 <strong>+104.7%</strong>、R250 +63.0%；周线中枢上方 +104.4%</td><td>PE(TTM) 65.9、PB 3.8；<strong>H1 归母 5.20 亿（−15.7%）</strong>；量能比 1.50</td><td>归母负增长；多肽订单集中于少数客户；周线已远离中枢</td><td><strong>中 / 1.5–3 倍</strong></td></tr>
+<tr><td>20</td><td><strong>皓元医药</strong> sh688131</td><td>上游 分子砌块+ADC CDMO</td><td><strong>54.4</strong> / 14.3 / 23.1 / 8.0 / 9.0（周3 日6）</td><td>分子砌块 + ADC 毒素/连接子 CDMO；H1 营收 16.48 亿（+25.7%）、毛利 50.76%；2025 年 +102.8%</td><td>PE(TTM) 81.8、PB 6.6；周线中枢上方 <strong>+108.8%</strong>（远离），9/11 三买已冻结后回调；❌ <strong>股东户数 +28.96%（12,315→15,882 户，筹码分散）</strong></td><td>估值偏高；ADC 订单波动；周线位置偏高；<strong>筹码在分散</strong></td><td><strong>中 / 2–4 倍</strong></td></tr>
+</tbody></table>
+<p><strong>排序逻辑说明</strong>：总分降序排列。<strong>估值分低于 5 分</strong>（PE 为负或极高）的标的（成都先导、海思科、华大智造、美迪西、百济神州）在仓位建议上应更依赖技术买点而非基本面锚；<strong>技术分低于 8 分</strong>的标的（奥浦迈 6、艾力斯 7、海思科 6）必须等回调确认，不得追高。<strong>筹码分未纳入打分（见 §5.3）</strong>：若把股东户数变动计入，毕得医药（+23.07%）、奥浦迈（+23.20%）、皓元医药（+28.96%）、键凯科技（+20.38%）、恒瑞医药（+17.64%）、海思科（+129.67%）应下调，药康生物（−14.53%）、诺禾致源（−11.17%）、昭衍新药（−10.07%）、药明康德（−8.34%）、东富龙（−2.82%）应上调。</p>
+<h3>6.3 概率与涨幅倍数的分布</h3>
+<table>
+<thead><tr><th>概率档</th><th>数量</th><th>标的</th><th>3 年潜在倍数</th></tr></thead>
+<tbody>
+<tr><td><strong>高概率实现 ≥1 倍</strong></td><td>4</td><td>药明康德、恒瑞医药、艾力斯、康龙化成</td><td>1–3 倍</td></tr>
+<tr><td><strong>中概率实现 1–3 倍</strong></td><td>13</td><td>百济神州、昭衍新药、成都先导、毕得医药、奥浦迈、药康生物、海思科、药石科技、诺禾致源、键凯科技、东富龙、艾德生物、凯莱英、皓元医药</td><td>1.5–5 倍</td></tr>
+<tr><td><strong>中概率实现 3–5 倍（需 AI 平台或卡脖子兑现）</strong></td><td>3</td><td>成都先导（DEL+AI 闭环）、药康生物（模式动物全球龙头）、华大智造（测序仪+数据）</td><td>3–5 倍</td></tr>
+<tr><td><strong>高赔率但概率偏低（5–10 倍）</strong></td><td>2</td><td>华大智造（若测序仪转盈 + AI 数据变现）、键凯科技（若 PEG 平台放量）</td><td>5–10 倍</td></tr>
+</tbody></table>
+<p><strong>诚实说明</strong>：<strong>没有一只标的可以给出"高概率 10 倍"的判断</strong>。理由：①产业链当前的真实利润集中在 500–5000 亿市值的大公司（药明康德、百济神州、恒瑞医药），大市值天然限制倍数；②真正有 10 倍潜力的是 50–300 亿市值的中小市值标的，但它们要么估值已泡沫化（近岸蛋白、百普赛斯、义翘神州、南模生物、益诺思，已全部剔除），要么仍在亏损（华大智造、美迪西）。<strong>任何声称 20 只标的都能 1–10 倍的说法都是不负责任的。</strong></p>
+<hr>
+<h2>七、风险与失效条件</h2>
+<p><strong>全行业层面的三条失效条件（触发即需修正本报告结论）</strong></p>
+<ol><li><strong>BD 出海交易金额下滑</strong>：验证指标 = 中国创新药季度对外授权金额与首付款。若 2026 全年交易总额显著低于 2025 年的 1357 亿美元，则"链 A"断裂，下游药企研发预算收缩将传导至 CXO 与上游。目前 2026H1 已 1063 亿美元，暂未触发。</li><li><strong>CXO 订单增速转负</strong>：验证指标 = 药明康德、康龙化成、凯莱英的季度在手订单与营收增速。药明康德在手订单 580.0 亿元（+28.8%）、H1 营收 +38.94%，目前健康；<strong>但凯莱英 H1 归母 −15.7% 已出现裂缝</strong>，需持续跟踪。</li><li><strong>基础模型被海外进一步垄断</strong>：验证指标 = 中国是否出现可对标 IsoDDE（2026-02-10，精度超 AlphaFold 3 两倍）的自主基础模型。若三年内没有，中国 AI 制药将永久停留在"应用层 + 数据提供方"，估值天花板被锁死。</li></ol>
+<p><strong>个股层面的主要风险</strong></p>
+<ul><li><strong>药明康德</strong>：地缘政治（美国生物安全法案类立法）是最大单一风险；一次性收益（2025 年归母 +102.65% 含处置收益）不可持续。</li><li><strong>昭衍新药</strong>：H1 归母 7.48 亿 vs 主营营业利润约 1.7 亿，<strong>利润几乎全部来自实验模型公允价值变动</strong>；猴子价格一旦回落，利润将大幅回吐。</li><li><strong>奥浦迈</strong>：+155.2% 的营收增速主要由并购澎立生物贡献，培养基主业内生增速约 20%；CDMO 分部毛利 −49.51%。</li><li><strong>成都先导</strong>：PE(TTM) 127.9、PB 11.7，IP 转让收入具有强项目周期性，单季度波动大。</li><li><strong>华大智造 / 美迪西</strong>：仍处亏损，估值分仅 3.5 / 1.5，若 2027 年前不能稳定盈利，将被市场从"核心"重新归类为"边缘"。</li><li><strong>海思科</strong>：PB 13.0、周线中枢上方 +146.5%、日线向下笔——技术位置全池最差。</li><li><strong>恒瑞医药</strong>：H1 营收 −1.9%，若 BD 首付款确认节奏错配，单季业绩会出现负增长。</li></ul>
+<p><strong>泡沫端的风险（已剔除标的的补充说明）</strong>：近岸蛋白（市值 112 亿 / H1 营收 0.78 亿 / 60 日 +320.5% / 量能比 6.22）、百普赛斯（PE 131.3 / 60 日 +189.1%）、义翘神州（PE 117.0 / 60 日 +137.5%）、南模生物（PE 226.7 / H1 归母 0.09 亿）、益诺思（PE 621.9）五只已构成典型的概念股泡沫。<strong>本报告不推荐，且建议持有者在放量滞涨时减仓。</strong></p>
+<hr>
+<h2>八、最终总结（回答四个必答问题）</h2>
+<p><strong>1. 未来 3–12 个月资本最可能持续流向哪些环节？</strong></p>
+<p>三个环节，按确定性排序：</p>
+<ul><li><strong>CXO / 医疗研发外包（第一）</strong>：板块 R60 +36.99%、R120 +46.86%、量能比 1.84，是唯一"涨幅 + 占比扩张"双成立的环节；药明康德 H1 营收 +38.94%、在手订单 580 亿。</li><li><strong>生命科学上游（分子砌块 / 模式动物 / 培养基 / 试剂）</strong>：直接受益于 AI 提高的分子通量，且国产替代空间真实（毕得医药 PE 38.3、药石科技 PB 2.85）。</li><li><strong>创新药出海兑现方</strong>：艾力斯（PE 18.7 / ROE 19.7%）、恒瑞医药（pos250 17.2% / 低位一买）、百济神州（H1 归母 +627%）。</li></ul>
+<p><strong>2. 为什么资金必须流向这些环节？</strong></p>
+<p>因为<strong>AI 制药的唯一可持续收入来自"替别人花研发费"</strong>。全球 AI 制药自身市场 2025 年仅 24.9 亿美元、中国仅 6 亿元人民币——这点钱养不活任何一家上市公司。而 AI 让药企产生的候选分子数量爆炸（药明康德过去 12 个月合成交付超 42 万个新化合物），这些分子必须被合成、纯化、做动物实验、做安评、申报临床——<strong>每一步都是一张订单</strong>。因此资金不是"流向 AI"，而是"流向 AI 制造的物理工作量"。而承担这些工作量的，就是 CXO 与生命科学上游。</p>
+<p><strong>3. 当前最大的投资风险是什么？</strong></p>
+<p><strong>上游小市值子板块的概念泡沫</strong>。近岸蛋白（0.78 亿营收撑 112 亿市值、60 日 +320.5%、量能放大 6.22 倍）、百普赛斯（PE 131）、义翘神州（PE 117）、南模生物（PE 227）、益诺思（PE 622）五只已经把"AI 制药"标签卖到了极致。若这部分泡沫破裂，会通过板块联动效应伤害整个医药板块的风险偏好，包括本报告推荐的优质标的。<strong>规避方式：不在这些标的上建仓，并对 CXO/上游优质标的设定 15%–20% 的技术止损（跌破日线中枢下沿）。</strong></p>
+<p><strong>第二个风险来自筹码层面（本版新增）</strong>：<strong>20 个标的里只有 7 只股东户数在减少</strong>，13 只在增加——包括海思科（+129.67%）、皓元医药（+28.96%）、奥浦迈（+23.20%）、毕得医药（+23.07%）、键凯科技（+20.38%）、恒瑞医药（+17.64%）。全池统计显示<strong>户数增加组平均跑输户数减少组 10.45 个百分点</strong>。也就是说，即使行业方向正确，<strong>买在"散户正在进场"的股票上也会显著跑输买在"筹码正在集中"的股票上</strong>。规避方式：优先在 §5.3 表中标记为「筹码集中」的 7 只（药明康德、昭衍新药、成都先导、药康生物、药石科技、诺禾致源、东富龙）中建仓。</p>
+<p><strong>4. 哪些热门方向看似正确，但可能无法形成超额收益？</strong></p>
+<ul><li><strong>纯 AI 算法/平台概念</strong>：A 股纯 AI 药物发现标的中，泓博医药 H1 营收仅 +3.3%、毛利 27.9%、PE 182；全球 AI 设计药物管线 179 个中仅 9 个进 III 期（和君咨询，2026-08）。算法可被开源模型（AlphaFold 3 已开源）替代，无法形成定价权。</li><li><strong>AI 医疗应用（影像/医疗IT/手术机器人）</strong>：卫宁健康 H1 归母 −1.76 亿、R250 −25.5%；润达医疗 H1 归母 −0.88 亿、R250 −41.1%；天智航 H1 归母 −0.70 亿、净利率 −76.2%。这个方向<strong>只有故事，没有利润</strong>。</li><li><strong>通用算力（AI 服务器/GPU）</strong>：与 AI 制药没有专属绑定关系，浪潮信息毛利仅 8.75%、科大讯飞 H1 归母 −2.04 亿——属于"蹭概念"，不构成超额收益来源。</li><li><strong>仿制药 CRO / 低端临床 CRO</strong>：阳光诺和 H1 营收 −27.8%、归母 −0.24 亿；泰格医药 H1 归母 −4.13 亿——买方议价力已经碾压这个环节。</li></ul>
+<hr>
+<h3>附：数据缺口与未覆盖项</h3>
+<ul><li><strong>财务</strong>：最新报告期为 2026-06-30 中报；2026 三季报（2026-09-30 期）尚未披露。</li><li><strong>估值</strong>：PE(TTM)/PB 取自腾讯行情快照，为 2026-09-30 收盘口径；AI 医疗/AI 制药概念板块自身的 PE/PB 及历史分位<strong>未查到</strong>公开数据源。</li><li><strong>股东户数</strong>：为 2026-06-30 披露口径（cninfo，本期 vs 2026-03-31），全池 105 只全部命中，已在 §5.3 完整使用；<strong>但该数据滞后于 2026-09-30 的 K 线口径</strong>（户数是中报披露时点，9 月的筹码变化未反映）。</li><li><strong>机构评级/目标价</strong>：AKShare <code>stock_institute_recommend</code>（最新投资评级），已在 §5.3 使用；<strong>键凯科技、东富龙无任何机构评级记录</strong>；<strong>成都先导、奥浦迈、艾力斯、药康生物、药石科技、康龙化成、艾德生物、美迪西、皓元医药有评级但无目标价</strong>。</li><li><strong>龙虎榜/机构席位</strong>：未做全池席位归因（2026-09-30 当日上榜仅 37 条记录，覆盖度不足）。可核实的机构净卖出样本：<strong>康希诺（sh688185）净卖出 2052.8 万元</strong>、<strong>万邦医药（sz301520）净卖出 4934.5 万元</strong>（来源 <code>lhb_jgmx.json</code>，AKShare 新浪口径）。</li><li><strong>海外映射</strong>：RXRX / SDGR / RLAY / ABSI / TEM / CERT 的股价与市值来自 Yahoo Finance 与 companiesmarketcap，为 2026-09-30/10-06 口径，与 A 股口径不同。</li><li><strong>一级市场</strong>：2026 全年 AI 药物发现融资总额尚未发布（PitchBook 2026 年度专项数据未出），仅有 2025 年 38 亿美元与 2026Q1 全球 AI 融资 2555 亿美元可作参照。</li><li><strong>未查到项</strong>：NMPA/CDE 单独的 AI 辅助药物研发专用指导原则（截至 2026-10-07）；药明康德 AI 平台对外授权的具体金额；药石科技、泓博医药 AI 相关对外交易金额；晶泰控股 2025 全年涨跌幅的单一权威口径。</li></ul>
+</body>
+</html>
