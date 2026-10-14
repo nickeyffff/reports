@@ -2,10 +2,12 @@
 <html lang="zh-CN">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#ffffff">
 <title>国际经营业务能力提升大讲堂 · 课程录屏</title>
 <style>
   *{box-sizing:border-box}
+  html{-webkit-text-size-adjust:100%}
   body{margin:0;background:#f4f4f6;color:#1c1c1e;line-height:1.6;
     font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei","Segoe UI",sans-serif}
   header{background:#fff;border-bottom:1px solid #e4e4e8;padding:13px 22px}
@@ -32,9 +34,23 @@
   a.btn:hover{background:#b8021a}
   footer{max-width:1400px;margin:0 auto;padding:0 22px 28px;font-size:.75rem;color:#9a9aa0}
   @media (max-width:900px){
-    .wrap{flex-direction:column;padding:14px 14px 30px}
+    .wrap{flex-direction:column;padding:12px 12px 28px;gap:12px}
     main{order:1;width:100%}
-    ul{order:2;width:100%;position:static}
+    ul{order:2;width:100%;position:static;padding:6px}
+    header{padding:11px 14px}
+    header h1{font-size:1rem;line-height:1.4}
+    header p{font-size:.72rem}
+    li{padding:12px}
+    li span{font-size:.9rem}
+    li em{margin-left:0}
+    .bar{padding:14px}
+    a.btn{display:block;text-align:center;padding:13px;font-size:.95rem}
+    video{border-radius:10px}
+    footer{padding:0 14px 22px}
+  }
+  @media (max-width:360px){
+    header h1{font-size:.94rem}
+    li b{display:block;margin:0 0 2px}
   }
 </style>
 </head>
@@ -71,10 +87,10 @@ const v = document.getElementById('v'), list = document.getElementById('list');
 D.forEach((c, i) => {
   const li = document.createElement('li');
   li.innerHTML = '<b>' + c.num + '</b><span>' + c.name + '</span><em>' + c.dur + ' · ' + c.size + '</em>';
-  li.onclick = () => play(i);
+  li.onclick = () => play(i, true);
   list.appendChild(li);
 });
-function play(i){
+function play(i, fromTap){
   const c = D[i];
   [...list.children].forEach((li, k) => li.classList.toggle('on', k === i));
   if (v.dataset.i !== String(i)) { v.dataset.i = i; v.src = c.play; v.load(); }
@@ -82,6 +98,9 @@ function play(i){
   document.getElementById('meta').textContent = '时长 ' + c.dur + ' · ' + c.size + ' · 2560×1440';
   const dl = document.getElementById('dl');
   dl.href = c.dl; dl.setAttribute('download', c.num + ' ' + c.name + '.mp4');
+  if (fromTap && window.innerWidth <= 900) {
+    document.querySelector('main').scrollIntoView({behavior:'smooth', block:'start'});
+  }
 }
 play(0);
 </script>
